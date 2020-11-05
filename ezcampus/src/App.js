@@ -1,8 +1,7 @@
-
 function App() {
   return (
     <div>
-      <h1>EZ Campus</h1>
+      <h1>EZ Campus Hi me</h1>
     </div>
   );
 }
