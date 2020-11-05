@@ -1,7 +1,7 @@
 function App() {
   return (
     <div>
-      <h1>EZ Campus Hi Liyuan again!!!!!</h1>
+      <h1>hello hello liyuan here</h1>
     </div>
   );
 }
