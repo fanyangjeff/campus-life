@@ -1,3 +1,12 @@
+如何把repo clone到本地
+step1: git init
+step2: git clone https://github.com/UCSD-Code-Farmers/frondend.git
+此时大家已经有了一份copy
+
+
+
+
+
 npm install 
 在通过npm安装任何包裹之前，请在 package.json 里找到dependencies，查找是否已经安装过
 
@@ -9,3 +18,6 @@ components
 providers
 在src文件夹下
 用于放置各类providers
+
+
+
