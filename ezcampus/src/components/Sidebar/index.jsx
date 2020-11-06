@@ -10,6 +10,7 @@ import {
 } from '@ant-design/icons';
 import "antd/dist/antd.css";
 import BigProfile from "./icons/BigProfile.png";
+import LoginPage from "../Login/LoginPage";
 
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
@@ -17,8 +18,15 @@ const { SubMenu } = Menu;
 class SideBar extends React.Component {
   state = {
     collapsed: false,
+      showPopUPLogin:false,
   };
 
+
+  onTogglePopup= () => {
+    this.setState({
+        showPopUPLogin: !this.state.showPopUPLogin
+    });
+  }
   onCollapse = collapsed => {
     console.log(collapsed);
     this.setState({ collapsed });
@@ -69,9 +77,11 @@ class SideBar extends React.Component {
                   marginBottom: "20px",
                   display: "inline"
                 }}
+                onClick={this.onTogglePopup}
               >
                 Log In / Sign Up
               </Button>
+              {this.state.showPopUPLogin? <LoginPage closePopup={this.onTogglePopup} /> : null}
          </div>
          <div>
             <NavLink to="/posts/create">
