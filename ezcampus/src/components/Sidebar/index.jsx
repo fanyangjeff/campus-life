@@ -9,7 +9,7 @@ import {
   UserOutlined,
 } from '@ant-design/icons';
 import "antd/dist/antd.css";
-//import BigProfile from "./icons/BigProfile.png";
+import BigProfile from "./icons/BigProfile.png";
 
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
@@ -41,7 +41,7 @@ class SideBar extends React.Component {
          <div>
             <NavLink to="/profile">
                 <img
-                    src={null}
+                    src={BigProfile? BigProfile: null}
                     style={{
                       //marginTop: "100px",
                       width: "78px",
