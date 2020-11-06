@@ -10,7 +10,7 @@ import {
 } from '@ant-design/icons';
 import "antd/dist/antd.css";
 import BigProfile from "./icons/BigProfile.png";
-import LoginPage from "../Login/LoginPage";
+import Login from "../Login/LoginPage";
 
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
@@ -81,7 +81,7 @@ class SideBar extends React.Component {
               >
                 Log In / Sign Up
               </Button>
-              {this.state.showPopUPLogin? <LoginPage closePopup={this.onTogglePopup} /> : null}
+              {this.state.showPopUPLogin? <Login closePopup={this.onTogglePopup} /> : null}
          </div>
          <div>
             <NavLink to="/posts/create">
