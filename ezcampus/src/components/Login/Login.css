@@ -1,5 +1,5 @@
+
 .popup {
-    /*border: 2px solid red;*/
     position: fixed;
     width: 100%;
     height: 100%;
@@ -8,29 +8,8 @@
     right: 0;
     bottom: 0;
     margin: auto;
-    /*背景模糊*/
     background-color: rgba(0,0,0, 0.5);
 }
-/*.popup_inner {*/
-/*    border: 2px solid black;*/
-/*    !*position: absolute;*!*/
-/*    !*left: 25%;*!*/
-/*    !*right: 25%;*!*/
-/*    !*top: 25%;*!*/
-/*    !*bottom: 25%;*!*/
-/*    !*margin: auto;*!*/
-/*    !*border-radius: 20px ;*!*/
-/*    !*background: white;*!*/
-/*    width:500px;*/
-/*    height:300px;*/
-/*    background: white;*/
-/*    color: black;*/
-/*    top:60%;*/
-/*    left:50%;*/
-/*    transform: translate(-50%,-50%);*/
-/*    box-sizing:border-box;*/
-/*    position: absolute;*/
-/*}*/
 
 .left-image{
     position: relative;
@@ -41,15 +20,6 @@
     background-size: 50% 100%;
     border: 1px solid #ff0000;
 }
-/*.logo{*/
-/*    width:150px;*/
-/*    height:150px;*/
-/*    top:25%;*/
-/*    left:50%;*/
-/*    transform: translate(-50%,-50%);*/
-/*    box-sizing:border-box;*/
-/*    position: absolute;*/
-/*}*/
 
 .Hero {
     height: 100%;
@@ -61,14 +31,12 @@
     position: relative;
     margin: 10% auto;
     background: #fff;
-    /*padding: 5px;*/
     overflow: hidden;
 }
 
 .button-box {
 
     border:1px solid black;
-    /*text-align: center;*/
     width: 220px;
     margin: 20px 350px;
     position: absolute;
@@ -84,6 +52,7 @@
     outline: none;
     position: relative;
 }
+
 #btn {
     top: 0;
     left: 0;
@@ -94,6 +63,7 @@
     border-radius: 30px;
     transition: 0.5s;
 }
+
 .input-group {
     top: 80px;
     left: 320px;
@@ -101,6 +71,7 @@
     width: 280px;
     transition: 0.5s;
 }
+
 .input-field {
     width: 100%;
     padding: 10px 0;
@@ -112,6 +83,7 @@
     outline: none;
     background: transparent;
 }
+
 .sumbit-btn {
     width: 85%;
     padding: 10px 30px;
@@ -123,14 +95,15 @@
     outline: none;
     border-radius: 30px;
 }
+
 .check-box {
     margin: 30px 10px 30px 0;
 }
+/*
 span {
     color: #777;
     font-size: 12px;
     bottom: 68px;
     position: absolute;
 }
-
-
+*/
