@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './Login.css'
-
+import axios from 'axios'
 class LoginPage extends Component{
     constructor(props) {
         super(props);
@@ -46,28 +46,41 @@ class LoginPage extends Component{
    *Todo:The user click the login button, the function will be called
    **/
     handleLogin= (event) =>{
-        alert("Login----not implement")
         event.preventDefault();
         const {username,password} = this.state
-        // console.log(username)
-        // console.log(password)
-        // console.log(this.history)
-        // try{
-        //     db
-        //         .auth()
-        //         .signInWithEmailAndPassword(username, password);
-        //     this.history.push("/");
-        // } catch (error){
-        //     alert(error);
-        // }
+        console.log(username, password)
+        axios.post('http://fanyangjeff.pythonanywhere.com/signin', {
+                'email': username,
+                'password': password
+            
+        })
+        .then(res => {
+            console.log(res.data)
+        })
+        .catch(err => {
+            console.log(err)
+        })
     }
     /*
     *Todo:The user click on the signUP, the function will be called
     **/
     handleSignUp= (event) =>{
-        alert("SignUp----not implement")
+        //alert("SignUp----not implement")
         event.preventDefault();
         const {username,password} = this.state
+
+        axios.post('http://fanyangjeff.pythonanywhere.com/signup', {
+            'email': username,
+            'userName': username, 
+            'password': password
+        })
+        .then(res => {
+            console.log(res.data)
+        })
+        .catch(err => {
+            console.log(err)
+        })
+
     }
 
     handleEmailVerification=()=>{
@@ -127,8 +140,8 @@ class LoginPage extends Component{
 
                         <form style={signup} className="input-group" onSubmit={this.handleSignUp}>
                             <input type="text" className="input-field" placeholder="Name" />
-                            <input type="email" className="input-field" placeholder="Email" />
-                            <input type="text" className="input-field" placeholder="Password" />
+                            <input type="email" className="input-field" placeholder="Email" onChange={this.handleUserNameChange}/>
+                            <input type="text" className="input-field" placeholder="Password" onChange={this.handlePasswordChange}/>
                             <input
                                 type="checkbox"
                                 className="check-box"
