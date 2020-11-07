@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import './Login.css'
+
 class LoginPage extends Component{
     constructor(props) {
         super(props);
@@ -14,6 +15,7 @@ class LoginPage extends Component{
         this.handleSignUpSwitch = this.handleSignUpSwitch.bind(this)
         this.handleLogin = this.handleLogin.bind(this)
         this.handleSignUp = this.handleSignUp.bind(this)
+        this.handleEmailVerification=this.handleEmailVerification.bind(this)
     }
     handleLoginSwitch(){
         this.setState({
@@ -27,7 +29,7 @@ class LoginPage extends Component{
     }
 
     /*
-    * input box onChange Handers
+    * input box handler
     * */
     handleUserNameChange = (event) =>{
         this.setState({
@@ -68,6 +70,10 @@ class LoginPage extends Component{
         const {username,password} = this.state
     }
 
+    handleEmailVerification=()=>{
+        alert("Email Verification -- not implement")
+    }
+
     render() {
         let signup = {left:"700px"}
         let login = {left: "320px"}
@@ -78,22 +84,12 @@ class LoginPage extends Component{
             btn = {left:"110px"}
         }
         return (
-            <div style={{
-                position: "fixed",
-                width: "100%",
-                height: "100%",
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                margin: "auto",
-                /*背景模糊*/
-                background: "rgba(0,0,0, 0.5)"}}>
+            <div className={"popup"}>
                 <div className={"Hero"}>
                     <div className={"form-box"}>
                         <button style={{float:"right", outline:"none",position:"relative",border:"0"}} type="button" onClick={this.props.closePopup}>x</button>
                         <div>
-                            <img className={"left-image"} src={"#"} alt={"LOGO"}/>
+                            <img className={"left-image"}/>
                         </div>
                         <div className={"button-box"}>
                             <div style={btn} id="btn"></div>
@@ -105,26 +101,39 @@ class LoginPage extends Component{
                             </button>
                         </div>
                         <form style={login} className="input-group" onSubmit={this.handleLogin}>
-                            <input type="text" className="input-field" placeholder="UserId" onChange={this.handleUserNameChange}/>
-                            <input type="text" className="input-field" placeholder="password" onChange={this.handlePasswordChange}/>
+                            <input type="text" className="input-field" placeholder="Email" onChange={this.handleUserNameChange}/>
+                            <input type="text" className="input-field" placeholder="Password" onChange={this.handlePasswordChange}/>
                             <input
                                 type="checkbox"
                                 className="check-box"
                                 placeholder="possword"
                             />
-                            <span>Remember Password</span>
+                            <span className={"spanText"}>Remember Password</span>
+                            <br />
+                            <span className={"spanText"}>Do you forget your password ?</span>
+                            <button
+                                type={"button"}
+                                style={{
+                                    color:"red",
+                                    background:"white",
+                                    border:"none",
+                                    outline:"none"}}
+                                onClick={this.handleEmailVerification}
+                            >reset</button>
+                            <br />
+                            <br />
                             <button type="submit" className="sumbit-btn">Login</button>
                         </form>
 
                         <form style={signup} className="input-group" onSubmit={this.handleSignUp}>
-                            <input type="text" className="input-field" placeholder="UserId" />
-                            <input type="email" className="input-field" placeholder="emailId" />
-                            <input type="text" className="input-field" placeholder="possword" />
+                            <input type="text" className="input-field" placeholder="Name" />
+                            <input type="email" className="input-field" placeholder="Email" />
+                            <input type="text" className="input-field" placeholder="Password" />
                             <input
                                 type="checkbox"
                                 className="check-box"
                                 placeholder="possword"
-                            /><span>I agree with the term & condition</span>
+                            /><span className={"spanText"}>I agree with the term & condition</span>
                             <button type="submit" className="sumbit-btn">SignUp</button>
                         </form>
                     </div>
