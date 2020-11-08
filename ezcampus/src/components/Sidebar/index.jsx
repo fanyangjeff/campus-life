@@ -11,6 +11,7 @@ import {
 import "antd/dist/antd.css";
 import BigProfile from "./icons/BigProfile.png";
 import Login from "../Login/LoginPage";
+import store from '../../store/Store'
 
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
@@ -18,15 +19,30 @@ const { SubMenu } = Menu;
 class SideBar extends React.Component {
   state = {
     collapsed: false,
-      showPopUPLogin:false,
+    showPopUPLogin:false,
+    userName: 'Guest'
   };
 
+  componentDidMount() {
+    store.subscribe(() => {
+      const {userName} = store.getState()
+      this.updateUserName(userName)
+    })
+  }
+
+  updateUserName = (userName) => {
+    this.setState({
+      userName
+    })
+  }
 
   onTogglePopup= () => {
-    this.setState({
-        showPopUPLogin: !this.state.showPopUPLogin
-    });
+    this.setState((prevState) => {
+      return {showPopUPLogin: !prevState.showPopUPLogin}
+    })
   }
+
+
   onCollapse = collapsed => {
     console.log(collapsed);
     this.setState({ collapsed });
