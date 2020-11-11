@@ -11,6 +11,7 @@ export default class Posts extends Component {
         return (
             <div>
                 liyuan jiayou
+                梨园 加油
             </div>
         )
     }

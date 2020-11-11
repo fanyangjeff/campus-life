@@ -23,19 +23,6 @@ class SideBar extends React.Component {
     userName: 'Guest'
   };
 
-  componentDidMount() {
-    store.subscribe(() => {
-      const {userName} = store.getState()
-      this.updateUserName(userName)
-    })
-  }
-
-  updateUserName = (userName) => {
-    this.setState({
-      userName
-    })
-  }
-
   onTogglePopup= () => {
     this.setState((prevState) => {
       return {showPopUPLogin: !prevState.showPopUPLogin}
@@ -97,7 +84,9 @@ class SideBar extends React.Component {
               >
                 Log In / Sign Up
               </Button>
-              {this.state.showPopUPLogin? <Login closePopup={this.onTogglePopup} /> : null}
+              {this.state.showPopUPLogin?
+                  <Login closePopup={this.onTogglePopup}
+                  /> : null}
          </div>
          <div>
             <NavLink to="/posts/create">
