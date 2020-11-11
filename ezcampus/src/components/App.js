@@ -1,6 +1,6 @@
 import SideBar from "./Sidebar";
 import UserProfile from "./Profile/ProfilePage/UserProfile"
-
+import Posts from './Posts/Posts'
 import {
   BrowserRouter,
   NavLink,
@@ -39,6 +39,7 @@ function App() {
                     <Route
                       exact
                       path="/posts"
+                      component={Posts}
                     />
                     <Route
                       exact
