@@ -1,11 +1,12 @@
 import React from "react";
 import styled from "styled-components";
+import {Button} from 'react-bootstrap'
 
 class UserProfile extends React.Component {
   render() {
     return (
       <AboutContainer>
-        <p>hello</p>
+        <Button type='primary'>Send</Button>
       </AboutContainer>
     )
   }
