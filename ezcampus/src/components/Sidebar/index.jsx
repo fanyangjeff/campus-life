@@ -23,6 +23,13 @@ class SideBar extends React.Component {
     userName: 'Guest'
   };
 
+  componentDidMount() {
+    store.subscribe(() => {
+      const {userName} = store.getState()
+      console.log(userName)
+    })
+  }
+
   onTogglePopup= () => {
     this.setState((prevState) => {
       return {showPopUPLogin: !prevState.showPopUPLogin}
@@ -34,6 +41,10 @@ class SideBar extends React.Component {
     console.log(collapsed);
     this.setState({ collapsed });
   };
+
+  updateUserName = () => {
+
+  }
 
   render() {
     const { collapsed } = this.state;
