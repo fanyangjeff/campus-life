@@ -1,7 +1,9 @@
 import SideBar from "./Sidebar";
 import UserProfile from "./Profile/ProfilePage/UserProfile"
 import Posts from './Posts/Posts'
-import Create from "./Posts/Create";
+
+import Create from "./Create/Create";
+
 import {
   BrowserRouter,
   NavLink,
