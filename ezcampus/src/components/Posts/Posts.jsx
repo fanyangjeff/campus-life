@@ -2,6 +2,10 @@ import React, { Component } from 'react'
 import SinglePost from './SinglePost'
 import { HomeOutlined } from '@ant-design/icons'
 import './Post.css'
+<<<<<<< HEAD
+
+=======
+>>>>>>> 71c3659b0909254e23334cff0d848177bbd1a6ce
 const data = [
     {
         id: '2232f-usfe-2323f23-2fdsf',
@@ -106,6 +110,10 @@ export default class Posts extends Component {
     }
 
     createPostList = () => {
+<<<<<<< HEAD
+        
+=======
+>>>>>>> 71c3659b0909254e23334cff0d848177bbd1a6ce
         return (
             <div className='posts-container'>
             {this.data.map(
@@ -116,6 +124,11 @@ export default class Posts extends Component {
                 ))}
             </div>
         )
+<<<<<<< HEAD
+        
+
+=======
+>>>>>>> 71c3659b0909254e23334cff0d848177bbd1a6ce
     }
 
     render() {

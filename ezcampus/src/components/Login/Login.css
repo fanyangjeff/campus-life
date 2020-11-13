@@ -7,7 +7,7 @@
   right: 0;
   bottom: 0;
   margin: auto;
-
+  z-index: 1000;
   padding: 0px;
   background-color: rgba(0, 0, 0, 0.5);
 }
@@ -27,6 +27,8 @@
 .Hero {
   height: 100%;
   width: 100%;
+  position: relative;
+  z-index: 100;
 }
 .form-box {
   width: 630px;
@@ -35,6 +37,7 @@
   margin: 10% auto;
   background: #fff;
   overflow: hidden;
+  z-index: 10;
 }
 
 .button-box-li {

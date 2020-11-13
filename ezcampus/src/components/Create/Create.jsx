@@ -2,8 +2,10 @@ import React, { Component } from 'react'
 import 'froala-editor/css/froala_style.min.css';
 import 'froala-editor/css/froala_editor.pkgd.min.css';
 import FroalaEditorComponent from 'react-froala-wysiwyg';
+import FroalaEditorInput from 'react-froala-wysiwyg'
 import 'froala-editor/js/plugins.pkgd.min.js';
 import 'froala-editor/js/third_party/font_awesome.min.js';
+import FroalaEditorView from 'react-froala-wysiwyg'
 import Button from 'react-bootstrap/Button';
 import './CreatePost.css';
 import uuid from 'react-uuid';
@@ -24,6 +26,10 @@ export default class Create extends Component {
     updateUserName = () => {
         const {userName} = store.getState();
         this.setState({userName}, () => {console.log(this.state)});
+    }
+
+    testing = (e) => {
+        console.log(typeof(e))
     }
 
     render() {
@@ -55,11 +61,13 @@ export default class Create extends Component {
                     {/*    <textarea className="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>*/}
                     {/*</div>*/}
                 </form>
+                <div className='create-post-text-area'>
                 <p><strong>DETAILS</strong></p>
                 <FroalaEditorComponent tag={'textarea'} config={{
                     placeholderText: 'Write the details here!',
                     charCounterCount: true
                 }}/>
+                </div>
                 <br/>
                 <div>
                     <Button type="button" id="creat-post-cancel"

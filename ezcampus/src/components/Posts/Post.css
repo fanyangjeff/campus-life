@@ -3,7 +3,10 @@
     margin: 0 auto;
     border-radius: 20px;
     display: inline-block;
+<<<<<<< HEAD
+=======
     position: relative;
+>>>>>>> 71c3659b0909254e23334cff0d848177bbd1a6ce
     height: 11rem;
     background-color: white;
     margin-bottom: 25px;
@@ -17,7 +20,11 @@
 .single-post-header {
     font-weight: bold;
     display: inline-block !important;
+<<<<<<< HEAD
+
+=======
     position: relative;
+>>>>>>> 71c3659b0909254e23334cff0d848177bbd1a6ce
     
     left: 30px;
     top: 10px;
@@ -25,6 +32,13 @@
   
 }
 
+<<<<<<< HEAD
+
+.single-post-creator {
+    display: inline;
+    margin-left: 30px;
+    padding-top: 10px;
+=======
 .single-post-date {
     float: right;
     font-weight: 300 !important;
@@ -38,6 +52,7 @@
     display: inline;
     position: relative;
     left: 50px;
+>>>>>>> 71c3659b0909254e23334cff0d848177bbd1a6ce
     font-size: 20px;
     color: rgb(84, 88, 113);
     font-weight: bold !important;
@@ -45,16 +60,36 @@
 }
 
 .single-post-type {
+<<<<<<< HEAD
+    margin-left: 40px;
+    padding-top: 18px;
+=======
     position: relative;
     left: 30px;
     padding-top: 10px;
+>>>>>>> 71c3659b0909254e23334cff0d848177bbd1a6ce
     color: rgb(84, 88, 113);
     font-size: 14px;
     font-family: 'BasicSans';
 }
 
+<<<<<<< HEAD
+.single-post-date {
+    padding-top: 10px;
+    float: right;
+    font-weight: 300 !important;
+    font-size: 12 !important;
+    color: rgb(84, 88, 113);
+    font-family: BasicSans; 
+
+}
+
+.single-post-title {
+   
+=======
 .single-post-title {
     position: relative;
+>>>>>>> 71c3659b0909254e23334cff0d848177bbd1a6ce
     top: 10px;
     padding-left: 20px;
     font-weight: 500;
@@ -65,9 +100,14 @@
 
 
 .single-post-description-box {
+<<<<<<< HEAD
+    margin-top: 5px;
+    height: 60px;
+=======
     margin-top: 10px;
     padding-top: 10px;
     height: 70px;
+>>>>>>> 71c3659b0909254e23334cff0d848177bbd1a6ce
 }
 
 .single-post-description-text {
@@ -84,13 +124,21 @@
 .single-post-detailButton-box {
     padding-right: 20px;  
     width: 100%;
+<<<<<<< HEAD
+    height: 30px; 
+=======
     height: 30px;  
     position: relative;
     bottom: 10px;
+>>>>>>> 71c3659b0909254e23334cff0d848177bbd1a6ce
 }
 .single-post-detailButton {
     float: right !important;
     padding: 5px 5px 5px 5px !important;
+<<<<<<< HEAD
+    margin-bottom: 10px;
+=======
+>>>>>>> 71c3659b0909254e23334cff0d848177bbd1a6ce
 }
 
 
@@ -100,6 +148,10 @@
     height: 80vh;
     padding-left: 30px;
     padding-right: 30px;
+<<<<<<< HEAD
+  
+=======
+>>>>>>> 71c3659b0909254e23334cff0d848177bbd1a6ce
 }
 
 .posts-header {
@@ -112,4 +164,8 @@
     margin-left: 50px;
     margin-bottom: 50px;
     flex-flow:"row warp"
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 71c3659b0909254e23334cff0d848177bbd1a6ce

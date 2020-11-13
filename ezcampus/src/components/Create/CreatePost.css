@@ -4,6 +4,9 @@
     margin-right: 100px;
 }
 
+.create-post-text-area {
+    position: static !important;
+}
 .creat-post-send {
     /*border: 1px white solid;*/
     /*position: relative;*/
