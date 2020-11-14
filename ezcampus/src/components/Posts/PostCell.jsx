@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import './Post.css'
 import {Button} from 'react-bootstrap'
 
-export default class SinglePost extends Component {
+export default class PostCell extends Component {
     constructor(props) {
         super(props)
         this.data = this.props.data
@@ -22,23 +22,13 @@ export default class SinglePost extends Component {
                 <div className='single-post-header'>
                 <div style={{display: 'inline-block'}}>
                     <div style={{display: 'flex'}}>
-<<<<<<< HEAD
+
                         <div className='single-post-creator'>
                             {creator}
                         </div>
                         <div className='single-post-type'>
                             {type}  
                         </div>
-=======
-                        <span className='single-post-creator'>
-                            {creator}
-
-                            <span className='single-post-type'>
-                            {type}
-                            </span>
-
-                        </span>
->>>>>>> 71c3659b0909254e23334cff0d848177bbd1a6ce
                     </div>
                 </div>
 
@@ -53,7 +43,7 @@ export default class SinglePost extends Component {
 
                 <div className='single-post-description-box'>
                     <div className='single-post-description-text'>
-                        <p>{description}</p>
+                        {description}
                     </div>
                 </div>
                 </div>

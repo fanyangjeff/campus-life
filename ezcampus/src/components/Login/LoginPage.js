@@ -67,10 +67,38 @@ class LoginPage extends Component{
     handleLogin= (event) =>{
         event.preventDefault();
         const {email,password} = this.state
-
-        axios.post('http://fanyangjeff.pythonanywhere.com/signin', {
+        console.log(email)
+        console.log(password)
+        axios.post('http://metaraw.world:3000/users/email_login', {
                 'email': email,
                 'password': password
+            
+        })
+        .then(res => {
+            console.log(res)
+            if (res.data.statusCode == 200) {
+                const action = {
+                    type: 'setEmailAndUserName',
+                    data: {
+                        email: res.data.user.email,
+                        userName: res.data.user.userName
+                    }
+                }
+                store.dispatch(action)
+                this.props.closePopup()
+            }
+        })
+        .catch(err => {
+            console.log(err)
+            if (!err.response) return
+            const errRes = err.response
+            alert(errRes.message)
+            console.log(errRes.message)
+        })
+        /*
+        axios.post('http://fanyangjeff.pythonanywhere.com/signin', {
+            'email': email,
+            'password': password
             
         })
         .then(res => {
@@ -104,15 +132,41 @@ class LoginPage extends Component{
         .catch(err => {
             console.log(err)
         })
+        */
     }
-    /*
-    *Todo:The user click on the signUP, the function will be called
-    **/
+
     handleSignUp= (event) =>{
-        //alert("SignUp----not implement")
         event.preventDefault();
         const {email, username,password} = this.state
+        axios.post('http://server.metaraw.world:3000/users/email_register', {
+            'email': email,
+            'userName': username, 
+            'password': password
+        })
+        .then(res => {
+            if (res.data.statusCode == 200) {
+                console.log(res.data)
+                const action = {
+                    type: 'setEmailAndUserName',
+                    data: {
+                        email,
+                        userName: username
+                    }
+                }
 
+                store.dispatch(action)
+                this.props.closePopup()
+            }
+        })
+        .catch(err => {
+            if (!err.response) return
+            const errRes = err.response
+            if (errRes.status == 403) {
+                console.log(errRes.data)
+                alert(errRes.data.message)
+            }
+        })
+        /*
         axios.post('http://fanyangjeff.pythonanywhere.com/signup', {
             'email': email,
             'userName': username, 
@@ -137,7 +191,7 @@ class LoginPage extends Component{
         .catch(err => {
             console.log(err)
         })
-
+        */
     }
 
     handleEmailVerification=()=>{
