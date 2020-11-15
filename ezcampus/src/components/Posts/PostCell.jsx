@@ -44,11 +44,7 @@ export default class PostCell extends Component {
 
                 <div className='single-post-description-box'>
                     <div className='single-post-description-text'>
-<<<<<<< HEAD:ezcampus/src/components/Posts/PostCell.jsx
                         {ReactHtmlParser(description)}
-=======
-                        {description}
->>>>>>> bd3262333be43fc663986c67d8611df21d919a49:ezcampus/src/components/Posts/SinglePost.jsx
                     </div>
                 </div>
                 </div>
