@@ -69,7 +69,11 @@ class LoginPage extends Component{
         const {email,password} = this.state
         console.log(email)
         console.log(password)
+<<<<<<< HEAD
+        axios.post('http://server.metaraw.world:3000/users/email_login', {
+=======
         axios.post('http://metaraw.world:3000/users/email_login', {
+>>>>>>> bd3262333be43fc663986c67d8611df21d919a49
                 'email': email,
                 'password': password
             
@@ -82,6 +86,8 @@ class LoginPage extends Component{
                     data: {
                         email: res.data.user.email,
                         userName: res.data.user.userName
+<<<<<<< HEAD
+=======
                     }
                 }
                 store.dispatch(action)
@@ -114,31 +120,47 @@ class LoginPage extends Component{
                             email: res.data.user.email,
                             userName: res.data.user.userName
                         }
+>>>>>>> bd3262333be43fc663986c67d8611df21d919a49
                     }
-                    
-                    store.dispatch(action)
-                    break
                 }
-                case 403:
-                    alert(res.data.errMsg)
-                    return
-                case 404:
-                    alert(res.data.errMsg)
-                    return
-                default:
-                    return
+                store.dispatch(action)
+                this.props.closePopup()
             }
         })
+        .catch(err => {
+            console.log(err.response)
+            if (!err.response) return
+            const errRes = err.response
+            switch (errRes.status) {
+                case 404: {
+                    alert('user not found')
+                    return
+                }
+                case 403: {
+                    alert('wrong password')
+                    return
+                }
+                default: {
+                    return
+                }
+            }
+        })
+<<<<<<< HEAD
+       
+=======
         .catch(err => {
             console.log(err)
         })
         */
+>>>>>>> bd3262333be43fc663986c67d8611df21d919a49
     }
 
     handleSignUp= (event) =>{
         event.preventDefault();
         const {email, username,password} = this.state
         axios.post('http://server.metaraw.world:3000/users/email_register', {
+<<<<<<< HEAD
+=======
             'email': email,
             'userName': username, 
             'password': password
@@ -168,30 +190,38 @@ class LoginPage extends Component{
         })
         /*
         axios.post('http://fanyangjeff.pythonanywhere.com/signup', {
+>>>>>>> bd3262333be43fc663986c67d8611df21d919a49
             'email': email,
             'userName': username, 
             'password': password
         })
         .then(res => {
-            console.log(res.data)
-            switch (res.data.statusCode) {
-                case 200:
-                    console.log("signed up successfully")
-                    this.props.closePopup()
-                    break
-                case 403:
-                    alert(res.data.errMsg)
-                    console.log(res.data.errMsg)
-                    return
-                default:
-                    return
-            }
+            if (res.data.statusCode == 200) {
+                console.log(res.data)
+                const action = {
+                    type: 'setEmailAndUserName',
+                    data: {
+                        email,
+                        userName: username
+                    }
+                }
 
+                store.dispatch(action)
+                this.props.closePopup()
+            }
         })
         .catch(err => {
-            console.log(err)
+            if (!err.response) return
+            const errRes = err.response
+            if (errRes.status == 403) {
+                console.log(errRes.data)
+                alert(errRes.data.message)
+            }
         })
+<<<<<<< HEAD
+=======
         */
+>>>>>>> bd3262333be43fc663986c67d8611df21d919a49
     }
 
     handleEmailVerification=()=>{

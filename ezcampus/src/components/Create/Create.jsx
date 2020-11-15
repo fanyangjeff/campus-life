@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import {useHistory} from 'react-router-dom'
 import 'froala-editor/css/froala_style.min.css';
 import 'froala-editor/css/froala_editor.pkgd.min.css';
 import FroalaEditorComponent from 'react-froala-wysiwyg';
@@ -10,27 +11,79 @@ import Button from 'react-bootstrap/Button';
 import './CreatePost.css';
 import uuid from 'react-uuid';
 import store from '../../store/Store'
-
+import axios from 'axios'
 
 export default class Create extends Component {
     constructor(props) {
         super(props)
-        this.uuid = uuid();
-        const postTime = new Date();
-        const postDate = postTime.toLocaleString('en-GB', { timeZone: 'PST' })
-        // date-time and username info to pass to backend
-        this.state = {"postDate": postDate, userName: "guest"};
+        this.history = props.history
+
+        this.state = {creatorEmail: '', creatorName: '', description: '', title: '', postType: 'furniture trading'};
     }
 
-    // updating the username when "Send" button is onClick
-    updateUserName = () => {
-        const {userName} = store.getState();
-        this.setState({userName}, () => {console.log(this.state)});
+
+    updateTitle = (e) => {
+        this.setState({title: e.target.value})
     }
 
-    testing = (e) => {
-        console.log(typeof(e))
+    updateType = (e) => {
+        this.setState({postType: e.target.value})
     }
+
+     
+    updateEditerComponentText = (e) => {
+        this.setState({description: e})
+    }
+
+    submitPost = () => {
+
+        //check if the title or description is left empty
+        const {isLoggedIn} = store.getState()
+        if (isLoggedIn == false) {
+            alert('please signup/login first')
+            return
+        }
+
+        if (this.state.title == '') {
+            alert('please enter a valid title')
+            return
+        }
+
+        if (this.state.description == '') {
+            alert('Description cannot be empty')
+            return
+        }
+
+
+        const {userName, email} = store.getState()
+
+
+        //some other info is required for making a post
+        const otherInfo = {
+            date: new Date().toLocaleString('en-GB', { timeZone: 'PST' }),
+            views: 0,
+            likes: 0,
+            postId: uuid()
+        }
+
+        
+        //since setState is aysnc, the aixos API call need to be placed in its callback function
+        
+        this.setState({creatorName: userName, creatorEmail:email}, () => {
+            axios.post('http://server.metaraw.world:3000/posts/create_a_post', {
+                ...this.state,
+                ...otherInfo
+            })
+            .then(res => {
+                if (res.data.statusCode == 200) {
+                    console.log('post has been created')
+                    this.history.push('/posts')
+                }
+            })
+        })
+    
+    }
+    
 
     render() {
         return (
@@ -42,18 +95,18 @@ export default class Create extends Component {
 
                 <form>
                     <div className="form-group">
-                        <label><strong>SUBJECT</strong></label>
-                        <input type="email" className="form-control" id="postSubject"
-                               placeholder="Your subject goes here..."/>
+                        <label><strong>Title</strong></label>
+                        <input type="text" className="form-control"
+                               placeholder="Please enter the title of this post"
+                               onChange={this.updateTitle}/>
                     </div>
                     <div className="form-group">
                         <label><strong>CATEGORY</strong></label>
-                        <select className="form-control" id="postCategory">
-                            <option>Second Hand</option>
+                        <select className="form-control" id="postCategory" onChange={this.updateType}>
+                            <option>furniture trading</option>
                             <option>Ride Sharing</option>
                             <option>Cutie Catty</option>
-                            {/*<option>4</option>*/}
-                            {/*<option>5</option>*/}
+                            <option>Outdoor Activity</option>
                         </select>
                     </div>
                     {/*<div className="form-group">*/}
@@ -62,11 +115,11 @@ export default class Create extends Component {
                     {/*</div>*/}
                 </form>
                 <div className='create-post-text-area'>
-                <p><strong>DETAILS</strong></p>
+                <p><strong>Description</strong></p>
                 <FroalaEditorComponent tag={'textarea'} config={{
                     placeholderText: 'Write the details here!',
                     charCounterCount: true
-                }}/>
+                }} onModelChange={this.updateEditerComponentText}/>
                 </div>
                 <br/>
                 <div>
@@ -75,7 +128,8 @@ export default class Create extends Component {
                         <strong>Cancel</strong>
                     </Button>
                     <Button type="button" id="creat-post-send"
-                            className="btn btn-success float-right btn-lg" onClick={this.updateUserName}>
+                            className="btn btn-success float-right btn-lg"
+                            onClick={this.submitPost}>
                         <strong>Send</strong>
                     </Button>
                 </div>

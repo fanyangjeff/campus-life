@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 import PostCell from './PostCell'
 import { HomeOutlined } from '@ant-design/icons'
 import './Post.css'
+<<<<<<< HEAD
+import axios from 'axios'
+=======
 const data = [
     {
         id: '2232f-usfe-2323f23-2fdsf',
@@ -84,13 +87,20 @@ const data = [
         likes: 8
     }
 ]
+>>>>>>> bd3262333be43fc663986c67d8611df21d919a49
 
 export default class Posts extends Component {
     constructor(props) {
         super(props)
-        this.data = data
+        this.state = {posts: []}
     }
 
+    componentDidMount() {
+        axios.get('http://server.metaraw.world:3000/posts/get_all_posts')
+        .then(res => {
+            this.setState({posts: res.data.data})
+        })
+    }
 
     homeOutlinedHeader = () => {
         return (
@@ -106,6 +116,15 @@ export default class Posts extends Component {
     }
 
     createPostList = () => {
+<<<<<<< HEAD
+        return (
+            <div className='posts-container'>
+            {this.state.posts.map(
+                post => (
+                <PostCell 
+                    data={post}
+                    key={post.postId}
+=======
 
         return (
             <div className='posts-container'>
@@ -113,6 +132,7 @@ export default class Posts extends Component {
                 data => (
                 <PostCell 
                     data={data}
+>>>>>>> bd3262333be43fc663986c67d8611df21d919a49
                 />
                 ))}
             </div>
@@ -126,10 +146,7 @@ export default class Posts extends Component {
                 <div className='posts-header'>
                     {this.homeOutlinedHeader()}
                 </div>
-
-
                 {this.createPostList()}
-                
             </div>
         )
     }

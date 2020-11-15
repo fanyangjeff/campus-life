@@ -20,13 +20,14 @@ class SideBar extends React.Component {
   state = {
     collapsed: false,
     showPopUPLogin:false,
-    userName: 'Guest'
+    userName: 'Guest',
+    isLoggedIn: false
   };
 
   componentDidMount() {
     store.subscribe(() => {
-      const {userName} = store.getState()
-      console.log(userName)
+      const {userName, isLoggedIn} = store.getState()
+      this.setState({userName, isLoggedIn})
     })
   }
 
@@ -92,8 +93,9 @@ class SideBar extends React.Component {
                   display: "inline"
                 }}
                 onClick={this.onTogglePopup}
+                disabled={this.state.isLoggedIn}
               >
-                Log In / Sign Up
+                {this.state.isLoggedIn? this.state.userName: 'Log In / Sign Up'}
               </Button>
               {this.state.showPopUPLogin?
                   <Login closePopup={this.onTogglePopup}
