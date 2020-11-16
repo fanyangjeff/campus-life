@@ -197,7 +197,7 @@ class LoginPage extends Component{
                                     background:"white",
                                     border:"none",
                                     outline:"none !important" }}
-                                onClick={this.handleEmailVerification}
+                                onClick={this.props.onToggleEmailVerification}
                             >reset</button>
                             <br />
                             <br />
