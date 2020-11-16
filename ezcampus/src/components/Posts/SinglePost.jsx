@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import './Post.css'
 import {Button} from 'react-bootstrap'
-import ReactHtmlParser from 'react-html-parser'
+import { LikeOutlined, DislikeOutlined } from '@ant-design/icons'
 
-export default class PostCell extends Component {
+export default class SinglePost extends Component {
     constructor(props) {
         super(props)
         this.data = this.props.data
@@ -22,7 +22,7 @@ export default class PostCell extends Component {
         console.log(this.data)
     }
     render() {
-        const {creatorName, creatorEmail, title, description, views, likes, date, postId, postType} = this.data
+        const {creator, title, description, views, likes, date, id, type} = this.data
 
         return (
             <div className='single-post-container'>
@@ -30,13 +30,14 @@ export default class PostCell extends Component {
                 <div className='single-post-header'>
                 <div style={{display: 'inline-block'}}>
                     <div style={{display: 'flex'}}>
+                        <span className='single-post-creator'>
+                            {creator}
 
-                        <div className='single-post-creator'>
-                            {creatorName? creatorName: 'unknown'}
-                        </div>
-                        <div className='single-post-type'>
-                            {postType}  
-                        </div>
+                            <span className='single-post-type'>
+                            {type}
+                            </span>
+
+                        </span>
                     </div>
                 </div>
 
@@ -51,15 +52,15 @@ export default class PostCell extends Component {
 
                 <div className='single-post-description-box'>
                     <div className='single-post-description-text'>
-                        {ReactHtmlParser(description)}
+                        <p>{description}</p>
                     </div>
                 </div>
                 </div>
 
                 <div className= 'single-post-detailButton-box'>
                     <Button variant='light' className='single-post-detailButton'>View Details</Button>
-                    {/* <DislikeOutlined className='single-post-likeButton' />
-                    <LikeOutlined className='single-post-likeButton'/> */}
+                    <DislikeOutlined className='single-post-likeButton' />
+                    <LikeOutlined className='single-post-likeButton'/>
                 </div>
             </div>
         )
