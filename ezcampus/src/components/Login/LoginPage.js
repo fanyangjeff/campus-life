@@ -162,8 +162,7 @@ class LoginPage extends Component{
                 <div className={"Hero"}>
                     <div className={"form-box"}>
                         <button style={{float:"right", outline:"none",position:"relative",border:"0"}} type="button" onClick={this.props.closePopup}>x</button>
-                        <div>
-                            <img className={"left-image"}/>
+                        <div className={"left-image-box"}>
                         </div>
                         <div className={"button-box-li"}>
                             <div style={btn} id="btn_li"></div>

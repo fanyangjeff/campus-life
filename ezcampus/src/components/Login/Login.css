@@ -12,18 +12,16 @@
   background-color: rgba(0, 0, 0, 0.5);
 }
 
-.left-image {
-  border: 1px white solid;
+.left-image-box {
+  /*border: 1px white solid;*/
   position: relative;
-  background-image: url("./Logo/Logo.jpeg");
   float: left;
-  width: 50%;
-  height: 300px;
+  width: 315px;
+  height: 370px;
+  background-image: url("./Logo/Logo.jpeg");
   background-repeat: no-repeat;
   background-size: 100% 100%;
-  /*border: 1px solid #ff0000;*/
 }
-
 .Hero {
   height: 100%;
   width: 100%;
@@ -64,7 +62,7 @@
   position: absolute;
   width: 110px;
   height: 100%;
-  background: linear-gradient(to right, #ff105f, #ffad06);
+  background: linear-gradient(to right, #8bcdcd, #3797A4);
   border-radius: 30px;
   transition: 0.5s;
 }
@@ -95,7 +93,7 @@
   cursor: pointer;
   display: block;
   margin: auto;
-  background: linear-gradient(to right, #ff105f, #ffad06);
+  background: #b2deec;
   border: 0;
   outline: none !important;
   border-radius: 30px;

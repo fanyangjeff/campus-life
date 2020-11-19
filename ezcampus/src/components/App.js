@@ -4,6 +4,7 @@ import Posts from './Posts/Posts'
 import {useHistory} from 'react-router-dom'
 import Create from "./Create/Create";
 import Friends from "./Friends/Friends"
+import Section from "./ResponsiveSection/Section";
 
 import {
   BrowserRouter,
@@ -68,6 +69,7 @@ function App() {
                     <Route
                       exact
                       path="/groups"
+                      component={Section}
                     />
                     <Route
                       exact
