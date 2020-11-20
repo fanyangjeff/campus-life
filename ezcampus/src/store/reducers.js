@@ -17,6 +17,13 @@ export const userReducer = (state = {email: '', userName:'', isLoggedIn: false},
             newState.userName = action.data.userName
             return newState
         }
+
+        case 'unsetEmailAndUserName': {
+            newState.email = ''
+            newState.userName = ''
+            newState.isLoggedIn = false
+            return newState
+        }
         
         default: {
             return state

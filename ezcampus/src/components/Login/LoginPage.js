@@ -8,6 +8,7 @@ const eye = <FontAwesomeIcon icon={faEye} />;
 
 class LoginPage extends Component{
     constructor(props) {
+        
         super(props);
         this.state = {
             isSwitch:false,  //DO Not modify this
@@ -15,7 +16,8 @@ class LoginPage extends Component{
             email:"",
             username:"",
             password:"",
-            value:{}
+            value:{},
+            rememberUser: false
         }
         this.handleLoginSwitch = this.handleLoginSwitch.bind(this)
         this.handleSignUpSwitch = this.handleSignUpSwitch.bind(this)
@@ -24,6 +26,7 @@ class LoginPage extends Component{
         this.handleEmailVerification=this.handleEmailVerification.bind(this)
         this.handlePasswordDisplay = this.handlePasswordDisplay.bind(this)
         this.eye  = eye
+        
     }
 
     handleLoginSwitch(){
@@ -39,6 +42,12 @@ class LoginPage extends Component{
     handlePasswordDisplay= () =>{
         this.setState((preState)=>{
             return{isShowPassword: !preState.isShowPassword}
+        })
+    }
+
+    handleRememberUser =() => {
+        this.setState((preState) => {
+            return {rememberUser: !preState.rememberUser}
         })
     }
     /*
@@ -67,15 +76,13 @@ class LoginPage extends Component{
     handleLogin= (event) =>{
         event.preventDefault();
         const {email,password} = this.state
-        console.log(email)
-        console.log(password)
         axios.post('http://server.metaraw.world:3000/users/email_login', {
                 'email': email,
                 'password': password
             
         })
         .then(res => {
-            console.log(res)
+            //console.log(res)
             if (res.data.statusCode == 200) {
                 const action = {
                     type: 'setEmailAndUserName',
@@ -86,6 +93,11 @@ class LoginPage extends Component{
                 }
                 store.dispatch(action)
                 this.props.closePopup()
+                if (this.state.rememberUser){
+                    localStorage.setItem('ezcampus_user_email', this.state.email)
+                    localStorage.setItem('ezcampus_user_password', this.state.password)
+                }
+
             }
         })
         .catch(err => {
@@ -130,6 +142,10 @@ class LoginPage extends Component{
 
                 store.dispatch(action)
                 this.props.closePopup()
+
+                //auto login next time
+                if (this.state.rememberUser)
+                    localStorage.setItem('ezcampus_user_auto_login', {email: this.state.email, password: this.state.password})
             }
         })
         .catch(err => {
@@ -161,7 +177,7 @@ class LoginPage extends Component{
             <div className={"popup"}>
                 <div className={"Hero"}>
                     <div className={"form-box"}>
-                        <button style={{float:"right", outline:"none",position:"relative",border:"0"}} type="button" onClick={this.props.closePopup}>x</button>
+                        <button style={{float:"right", outline:"none",position:"relative",border:"0", borderRadius: '50%'}} type="button" onClick={this.props.closePopup}>x</button>
                         <div className={"left-image-box"}>
                         </div>
                         <div className={"button-box-li"}>
@@ -185,8 +201,9 @@ class LoginPage extends Component{
                                 type="checkbox"
                                 className="check-box"
                                 placeholder="possword"
+                                onChange={this.handleRememberUser}
                             />
-                            <strong className={"spanText"}>Remember Password</strong>
+                            <strong className={"spanText"}>Remember User</strong>
                             <br />
                             <strong className={"spanText"}>Do you forget your password ?</strong>
                             <button

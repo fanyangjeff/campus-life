@@ -11,6 +11,7 @@ import {
 import "antd/dist/antd.css";
 import BigProfile from "./icons/BigProfile.png";
 import Login from "../Login/LoginPage";
+import Logout from '../Logout/Logout'
 import store from '../../store/Store'
 import EmailVerification from "../Login/EmailVerification/EmailVerification";
 
@@ -35,7 +36,9 @@ class SideBar extends React.Component {
 
     onTogglePopup = () => {
         this.setState((prevState) => {
-            return {showPopUPLogin: !prevState.showPopUPLogin}
+            return {
+                showPopUPLogin: !prevState.showPopUPLogin,
+            }
         })
     }
     // EmailVerification
@@ -103,13 +106,16 @@ class SideBar extends React.Component {
                                 display: "inline"
                             }}
                             onClick={this.onTogglePopup}
-                            disabled={this.state.isLoggedIn}
                         >
                             {this.state.isLoggedIn ? this.state.userName : 'Log In / Sign Up'}
                         </Button>
-                        {this.state.showPopUPLogin ?
+                        {this.state.showPopUPLogin && !this.state.isLoggedIn?
                             <Login closePopup={this.onTogglePopup} onToggleEmailVerification={this.onToggleEmailVerification}
                             /> : null}
+                        
+                        {this.state.showPopUPLogin && this.state.isLoggedIn?
+                            <Logout closePopup={this.onTogglePopup}/>:null
+                        }
 
                         {this.state.isEmailVerification ?
                             <EmailVerification closePopup={this.onToggleEmailVerification}
