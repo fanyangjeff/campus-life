@@ -14,6 +14,7 @@ import Login from "../Login/LoginPage";
 import Logout from '../Logout/Logout'
 import store from '../../store/Store'
 import EmailVerification from "../Login/EmailVerification/EmailVerification";
+import PromptLogIn from "../Login/PromptLogIn";
 
 const {Header, Content, Footer, Sider} = Layout;
 const {SubMenu} = Menu;
@@ -22,15 +23,16 @@ class SideBar extends React.Component {
     state = {
         collapsed: false,
         showPopUPLogin: false,
+        showPromptLogIn: false,
         isEmailVerification: false,
         userName: 'Guest',
-        isLoggedIn: false
+        isLoggedIn: false,
     };
 
     componentDidMount() {
         store.subscribe(() => {
-            const {userName, isLoggedIn} = store.getState()
-            this.setState({userName, isLoggedIn})
+            const {userName, isLoggedIn, showPromptLogIn} = store.getState()
+            this.setState({userName, isLoggedIn, showPromptLogIn})
         })
     }
 
@@ -40,6 +42,18 @@ class SideBar extends React.Component {
                 showPopUPLogin: !prevState.showPopUPLogin,
             }
         })
+    }
+
+    onTogglePromptPopup = () => {
+        this.setState((prevState) => {
+            return {
+                showPromptLogIn: !prevState.showPromptLogIn
+            }
+        })
+
+        const action = {type: 'unsetShowPromptLogIn'}
+        store.dispatch(action)
+        
     }
     // EmailVerification
     onToggleEmailVerification = () => {
@@ -109,12 +123,18 @@ class SideBar extends React.Component {
                         >
                             {this.state.isLoggedIn ? this.state.userName : 'Log In / Sign Up'}
                         </Button>
-                        {this.state.showPopUPLogin && !this.state.isLoggedIn?
+                        {
+                            this.state.showPopUPLogin && !this.state.isLoggedIn?
                             <Login closePopup={this.onTogglePopup} onToggleEmailVerification={this.onToggleEmailVerification}
                             /> : null}
                         
-                        {this.state.showPopUPLogin && this.state.isLoggedIn?
-                            <Logout closePopup={this.onTogglePopup}/>:null
+                        {
+                            this.state.showPopUPLogin && this.state.isLoggedIn?
+                                <Logout closePopup={this.onTogglePopup}/>:null
+                        }
+                        
+                        {
+                            this.state.showPromptLogIn? <PromptLogIn openLogin={this.onTogglePopup} closePrompt={this.onTogglePromptPopup}/>:null    
                         }
 
                         {this.state.isEmailVerification ?
@@ -122,7 +142,7 @@ class SideBar extends React.Component {
                             /> : null}
                     </div>
                     <div>
-                        <NavLink to="/posts/create">
+                        <NavLink to={"/posts/create"}>
                             <Button
                                 type="primary"
                                 style={{
@@ -148,21 +168,33 @@ class SideBar extends React.Component {
                             <NavLink to="/posts"/>
                         </Menu.Item>
                         <Menu.Item key="2" icon={<DesktopOutlined/>}>
-                            Groups
+                            Sections
                             <NavLink to="/groups"/>
                         </Menu.Item>
-                        <Menu.Item key="3" icon={<UserOutlined/>}>
+                        {
+                            this.state.isLoggedIn?
+                            <Menu.Item key="3" icon={<UserOutlined/>}>
                             My Posts
                             <NavLink to="/posts/my"/>
-                        </Menu.Item>
-                        <Menu.Item key="4" icon={<UserOutlined/>}>
-                            Friends
-                            <NavLink to="/friends"/>
-                        </Menu.Item>
-                        <Menu.Item key="5" icon={<DesktopOutlined/>}>
-                            Message
-                            <NavLink to="/message"/>
-                        </Menu.Item>
+                            </Menu.Item>
+                            :null
+                        }
+
+                        {this.state.isLoggedIn?
+                            <Menu.Item key="4" icon={<UserOutlined/>}>
+                                Contacts
+                                <NavLink to="/friends"/>
+                            </Menu.Item>
+                            :null
+                        } 
+
+                        {   this.state.isLoggedIn?
+                            <Menu.Item key="5" icon={<DesktopOutlined/>}>
+                                Message
+                                <NavLink to="/message"/>
+                            </Menu.Item>
+                            : null
+                        }
                     </Menu>
                 </Sider>
                 <Layout className="site-layout">

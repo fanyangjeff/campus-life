@@ -17,7 +17,6 @@ export default class Logout extends Component {
     }
 
     handleLogout = () => {
-
         const action = {
             type: 'unsetEmailAndUserName'
         }

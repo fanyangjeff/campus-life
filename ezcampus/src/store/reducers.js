@@ -1,4 +1,12 @@
-export const userReducer = (state = {email: '', userName:'', isLoggedIn: false}, action) => {
+const initialState = {
+    email: '',
+    userName: '',
+    isLoggedIn: false,
+    showPromptLogIn: false
+}
+
+
+export const userReducer = (state = initialState, action) => {
     let newState = JSON.parse(JSON.stringify(state))
     switch (action.type) {
         case 'setEmailAndUserName': {
@@ -22,6 +30,16 @@ export const userReducer = (state = {email: '', userName:'', isLoggedIn: false},
             newState.email = ''
             newState.userName = ''
             newState.isLoggedIn = false
+            return newState
+        }
+
+        case 'setShowPromptLogIn': {
+            newState.showPromptLogIn = true
+            return newState
+        }
+
+        case 'unsetShowPromptLogIn': {
+            newState.showPromptLogIn = false
             return newState
         }
         

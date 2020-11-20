@@ -5,6 +5,7 @@ import React, { useState, useEffect } from 'react'
 import Create from "./Create/Create";
 import Friends from "./Friends/Friends"
 import Section from "./ResponsiveSection/Section";
+import store from '../store/Store'
 import {AutoLoginProvider} from '../contexts/AutoLoginProvider'
 import {
   BrowserRouter,
@@ -16,6 +17,15 @@ import {
 
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+
+  useEffect(() => {
+    store.subscribe(() => {
+      const {isLoggedIn} = store.getState()
+      setIsLoggedIn(isLoggedIn)
+    })
+
+  }, [])
 
   return (
     <AutoLoginProvider>
