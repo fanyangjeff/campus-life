@@ -12,6 +12,8 @@ import './CreatePost.css';
 import uuid from 'react-uuid';
 import store from '../../store/Store'
 import axios from 'axios'
+import FormData from 'form-data'
+import FroalaEditor from 'react-froala-wysiwyg';
 
 export default class Create extends Component {
     constructor(props) {
@@ -106,6 +108,7 @@ export default class Create extends Component {
     
 
     render() {
+        
         return (
             <div>
                 <br/>
@@ -140,6 +143,23 @@ export default class Create extends Component {
                 <p><strong>Description</strong></p>
                 <FroalaEditorComponent tag={'textarea'} config={{
                     placeholderText: 'Write the details here!',
+                    imageUpload: true,
+                    events: {
+                            'image.beforeUpload': function (images) {                           
+                            const data = new FormData();
+                            data.append('image', images[0]);
+                            axios.post('https://api.imgur.com/3/image', data, {
+                                headers: {
+                                    'Authorization': 'Client-ID c9897a7d288d020'
+                                }
+                            }).then(res => {                                
+                                console.log(this);
+                                this.image.insert(res.data.data.link);
+                            });
+
+                            return false;
+                        },
+                    },
                     charCounterCount: true
                 }} onModelChange={this.updateEditerComponentText}/>
                 </div>
