@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import './Post.css'
 import {Button} from 'react-bootstrap'
 import ReactHtmlParser from 'react-html-parser'
+import { Link } from "react-router-dom";
 
 export default class PostCell extends Component {
     constructor(props) {
@@ -55,12 +56,15 @@ export default class PostCell extends Component {
                     </div>
                 </div>
                 </div>
-
+ 
                 <div className= 'single-post-detailButton-box'>
-                    <Button variant='light' className='single-post-detailButton'>View Details</Button>
-                    {/* <DislikeOutlined className='single-post-likeButton' />
-                    <LikeOutlined className='single-post-likeButton'/> */}
+                   <Link to={(location) => `/posts/${postId}`}>
+                        <Button variant='light' className='single-post-detailButton' onClick={this.handleClick}>View Details</Button>
+                        {/* <DislikeOutlined className='single-post-likeButton' />
+                        <LikeOutlined className='single-post-likeButton'/> */}
+                    </Link>
                 </div>
+                  
             </div>
         )
     }
