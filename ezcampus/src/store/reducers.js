@@ -4,7 +4,8 @@ const initialState = {
     isLoggedIn: false,
     showPromptLogIn: false, 
     posts: [],
-    currentSelectedPostType: null
+    currentSelectedPostType: null,
+    postsMap: {}
 }
 
 
@@ -47,11 +48,15 @@ export const userReducer = (state = initialState, action) => {
 
         case 'setPosts': {
             newState.posts = action.data.posts
+            newState.postsMap = action.data.postsMap
             return newState
         }
 
         case 'addPost': {
             newState.posts = action.data.newPost.concat(newState.posts)
+            const post = action.data.newPost[0]
+            const postId = action.data.newPost[0].postId
+            newState.postsMap = {...newState.postsMap, postId: post}
             return newState
         }
 
@@ -64,7 +69,7 @@ export const userReducer = (state = initialState, action) => {
             newState.currentSelectedPostType = null
             return newState
         }
-        
+
         default: {
             return state
         }

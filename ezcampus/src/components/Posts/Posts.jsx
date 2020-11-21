@@ -68,6 +68,7 @@ export default class Posts extends Component {
                 <PostCell 
                     data={post}
                     key={post.postId}
+                    history={this.props.history}
                 />
                 ))
                 }

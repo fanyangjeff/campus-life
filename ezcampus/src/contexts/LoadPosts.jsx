@@ -6,7 +6,13 @@ export default function LoadPosts({children}) {
     useEffect(() => {
         axios.get('http://server.metaraw.world:3000/posts/get_all_posts')
         .then(res => {
-            const action = {type: 'setPosts', data: {posts: res.data.data}}
+            let postsMap = {}
+            const posts = res.data.data
+            for(var i = 0; i < res.data.data.length; i++) {
+                let post = posts[i]
+                postsMap[post.postId] = post
+            }
+            const action = {type: 'setPosts', data: {posts, postsMap}}
             store.dispatch(action)
         })
     }, [])
