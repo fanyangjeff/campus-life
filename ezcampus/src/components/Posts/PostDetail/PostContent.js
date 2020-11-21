@@ -60,6 +60,21 @@ class PostContent extends React.Component {
                   <span style={styles.timeText}>{this.state.data.date}</span>
                 </Col>
               </Row>
+              <Col span={24}>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  overflowY: "auto",
+                  fontFamily: "BasicSans",
+                  paddingTop: "25px",
+                }}
+              >
+                <div style={styles.postTitle}> {this.state.data.title} </div>
+
+                <style type="text/css"></style>
+              </div>
+            </Col>
               <div
                 style={{
                   display: "flex",
@@ -94,6 +109,13 @@ class PostContent extends React.Component {
       fontWeight: "300",
       fontSize: "12",
       color: "#808295",
+    },
+    postTitle: {
+      fontFamily: "BasicSans",
+      fontSize: 26,
+      fontWeight: "bold",
+      textAlign: "left",
+      color: "#545871",
     },
   };
 
