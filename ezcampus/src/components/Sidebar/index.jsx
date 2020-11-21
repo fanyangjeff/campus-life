@@ -20,6 +20,18 @@ const {Header, Content, Footer, Sider} = Layout;
 const {SubMenu} = Menu;
 
 class SideBar extends React.Component {
+    constructor(props) {
+        super(props)
+        this.unsubscribe = store.subscribe(() => {
+            const {userName, isLoggedIn, showPromptLogIn} = store.getState()
+            this.setState({userName, isLoggedIn, showPromptLogIn}, () => {
+                if (!this.state.isLoggedIn) {
+                    this.setState({currentSelectedMenuItem: '1'})
+                }
+            })
+        })
+    }
+
     state = {
         collapsed: false,
         showPopUPLogin: false,
@@ -27,13 +39,12 @@ class SideBar extends React.Component {
         isEmailVerification: false,
         userName: 'Guest',
         isLoggedIn: false,
+        currentSelectedMenuItem: '1'
     };
 
-    componentDidMount() {
-        store.subscribe(() => {
-            const {userName, isLoggedIn, showPromptLogIn} = store.getState()
-            this.setState({userName, isLoggedIn, showPromptLogIn})
-        })
+
+    scomponentWillUnmount() {
+        this.unsubscribe()
     }
 
     onTogglePopup = () => {
@@ -50,10 +61,8 @@ class SideBar extends React.Component {
                 showPromptLogIn: !prevState.showPromptLogIn
             }
         })
-
         const action = {type: 'unsetShowPromptLogIn'}
         store.dispatch(action)
-        
     }
     // EmailVerification
     onToggleEmailVerification = () => {
@@ -70,8 +79,14 @@ class SideBar extends React.Component {
         this.setState({collapsed});
     };
 
-    updateUserName = () => {
-
+    onSelectMenuItem = ({key}) => {
+        //if the user hasn't logged in, but trying to select items other than Home and Sections,
+        //then we let the tab stay at the homepage 
+        if (!this.state.isLoggedIn && key != '1'&& key != '2') {
+            this.setState({currentSelectedMenuItem: '1'})
+            return
+        }
+        this.setState({currentSelectedMenuItem: key})
     }
 
     render() {
@@ -162,39 +177,31 @@ class SideBar extends React.Component {
                             </Button>
                         </NavLink>
                     </div>
-                    <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
+                    <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" onSelect={this.onSelectMenuItem} selectedKeys={[this.state.currentSelectedMenuItem]}>
                         <Menu.Item key="1" icon={<PieChartOutlined/>}>
                             Home
                             <NavLink to="/posts"/>
                         </Menu.Item>
-                        <Menu.Item key="2" icon={<DesktopOutlined/>}>
+                        <Menu.Item key="2" icon={<DesktopOutlined/>} >
                             Sections
                             <NavLink to="/groups"/>
                         </Menu.Item>
-                        {
-                            this.state.isLoggedIn?
-                            <Menu.Item key="3" icon={<UserOutlined/>}>
+
+                        <Menu.Item key="3" icon={<UserOutlined/>}>
                             My Posts
                             <NavLink to="/posts/my"/>
-                            </Menu.Item>
-                            :null
-                        }
+                        </Menu.Item>
 
-                        {this.state.isLoggedIn?
-                            <Menu.Item key="4" icon={<UserOutlined/>}>
-                                Contacts
-                                <NavLink to="/friends"/>
-                            </Menu.Item>
-                            :null
-                        } 
+                        <Menu.Item key="4" icon={<UserOutlined/>}>
+                            Contacts
+                            <NavLink to="/friends"/>
+                        </Menu.Item>
+                            
+                        <Menu.Item key="5" icon={<DesktopOutlined/>}>
+                            Message
+                            <NavLink to="/message"/>
+                        </Menu.Item>
 
-                        {   this.state.isLoggedIn?
-                            <Menu.Item key="5" icon={<DesktopOutlined/>}>
-                                Message
-                                <NavLink to="/message"/>
-                            </Menu.Item>
-                            : null
-                        }
                     </Menu>
                 </Sider>
                 <Layout className="site-layout">

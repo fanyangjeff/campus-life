@@ -7,6 +7,7 @@ import Friends from "./Friends/Friends"
 import Section from "./ResponsiveSection/Section";
 import store from '../store/Store'
 import {AutoLoginProvider} from '../contexts/AutoLoginProvider'
+import LoadPosts from '../contexts/LoadPosts'
 import {
   BrowserRouter,
   NavLink,
@@ -20,14 +21,16 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
 
   useEffect(() => {
-    store.subscribe(() => {
+    const unsubscribe = store.subscribe(() => {
       const {isLoggedIn} = store.getState()
       setIsLoggedIn(isLoggedIn)
     })
 
+    return () => {unsubscribe()}
   }, [])
 
   return (
+    <LoadPosts>
     <AutoLoginProvider>
       <div className="App">
         <BrowserRouter>
@@ -99,6 +102,7 @@ function App() {
         </BrowserRouter>
       </div>
     </AutoLoginProvider>
+    </LoadPosts>
   );
 }
 

@@ -2,7 +2,9 @@ const initialState = {
     email: '',
     userName: '',
     isLoggedIn: false,
-    showPromptLogIn: false
+    showPromptLogIn: false, 
+    posts: [],
+    currentSelectedPostType: null
 }
 
 
@@ -40,6 +42,26 @@ export const userReducer = (state = initialState, action) => {
 
         case 'unsetShowPromptLogIn': {
             newState.showPromptLogIn = false
+            return newState
+        }
+
+        case 'setPosts': {
+            newState.posts = action.data.posts
+            return newState
+        }
+
+        case 'addPost': {
+            newState.posts = action.data.newPost.concat(newState.posts)
+            return newState
+        }
+
+        case 'setSelectedPostType': {
+            newState.currentSelectedPostType = action.data.postType
+            return newState
+        }
+
+        case 'unsetCurrentPostType': {
+            newState.currentSelectedPostType = null
             return newState
         }
         

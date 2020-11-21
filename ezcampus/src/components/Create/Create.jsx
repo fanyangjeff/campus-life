@@ -95,6 +95,8 @@ export default class Create extends Component {
             .then(res => {
                 if (res.data.statusCode == 200) {
                     console.log('post has been created')
+                    const action = {type: 'addPost', data: {newPost: [{...this.state, ...otherInfo}]}}
+                    store.dispatch(action)
                     this.history.push('/posts')
                 }
             })
@@ -121,10 +123,12 @@ export default class Create extends Component {
                     <div className="form-group">
                         <label><strong>CATEGORY</strong></label>
                         <select className="form-control" id="postCategory" onChange={this.updateType}>
-                            <option>furniture trading</option>
+                            <option>Free or For Sale</option>
                             <option>Ride Sharing</option>
-                            <option>Cutie Catty</option>
-                            <option>Outdoor Activity</option>
+                            <option>Cutie Pets</option>
+                            <option>Housing</option>
+                            <option>Entertainment</option>
+                            <option>Others</option>
                         </select>
                     </div>
                     {/*<div className="form-group">*/}

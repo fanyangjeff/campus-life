@@ -1,31 +1,59 @@
 import React, { Component } from 'react'
 import PostCell from './PostCell'
 import { HomeOutlined } from '@ant-design/icons'
+import {Button} from 'react-bootstrap'
 import './Post.css'
-import axios from 'axios'
+import store from '../../store/Store'
 
 
 export default class Posts extends Component {
     constructor(props) {
         super(props)
         this.state = {posts: []}
+        this.unsubscribe = store.subscribe(() => {
+            const {posts, currentSelectedPostType} = store.getState()
+            if (currentSelectedPostType) {
+                const customizedPosts = posts.filter(post => post.postType == currentSelectedPostType)
+                console.log(customizedPosts)
+                this.setState({posts: customizedPosts})
+            } else {
+                this.setState({posts})
+            }
+        })
     }
 
     componentDidMount() {
-        axios.get('http://server.metaraw.world:3000/posts/get_all_posts')
-        .then(res => {
-            this.setState({posts: res.data.data})
-        })
+        const {posts, currentSelectedPostType} = store.getState()
+
+        if (currentSelectedPostType) {
+            const customizedPosts = posts.filter(post => post.postType == currentSelectedPostType)
+            console.log(customizedPosts)
+            this.setState({posts: customizedPosts})
+        } else {
+            this.setState({posts})
+        }
+    }
+
+    componentWillUnmount() {
+        this.unsubscribe()
+    }
+
+    handleShowAll = () => {
+        const action = {type: 'unsetCurrentPostType'}
+        store.dispatch(action)
     }
 
     homeOutlinedHeader = () => {
         return (
-            <div style={{marginLeft: '25px', marginTop: '20px'}}>
+            <div style={{marginLeft: '35px', marginTop: '20px'}}>
                 <HomeOutlined style={{
                     fontSize:40,
                     float: "left"}}/>
                 <div className='posts-homeOutLined'>
                     Home
+                </div>
+                <div style={{float: 'right', marginRight: '50px'}}>
+                        <Button variant='secondary' onClick={this.handleShowAll}>Show All</Button>
                 </div>
             </div>
         )
@@ -33,15 +61,16 @@ export default class Posts extends Component {
 
     createPostList = () => {
         return (
-
             <div className='posts-container'>
-            {this.state.posts.map(
+            {
+            this.state.posts.map(
                 post => (
                 <PostCell 
                     data={post}
                     key={post.postId}
                 />
-                ))}
+                ))
+                }
             </div>
         )
     }

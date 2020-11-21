@@ -104,7 +104,7 @@
 
 .posts-homeOutLined {
   font-size: 35px;
-  margin-left: 50px;
+  margin-left: 10px;
   margin-bottom: 50px;
-  flex-flow: "row warp";
+  display: inline-block;
 }
