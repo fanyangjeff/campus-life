@@ -43,10 +43,11 @@ class UserProfile extends React.Component {
         this.setState({
           profile:res.data.profile
         },() =>{
-          // console.log(this.state.profile)
+          // console.log(this.state.profile.avatarlink)
         })
       }
     })
+    
   }
   
   renderRedirect = () => {
@@ -78,13 +79,18 @@ class UserProfile extends React.Component {
         }
       >
         <div style={styles.avatar}>
-          <AvatarImage
-            src={BigProfile}
-          ></AvatarImage>
+        {!this.state.profile.avatarlink ?
+            <AvatarImage
+              src={BigProfile}
+            >
+            </AvatarImage>  :
+            <AvatarImage
+            src={this.state.profile.avatarlink}
+            ></AvatarImage>
+        }
         </div>
         <div style={styles.nameText}>
-          <Name>{this.state.profile.firstName}</Name>
-          <Name>{this.state.profile.lastName}</Name>
+          <Name>{this.state.profile.userName}</Name>
         </div>
         <div style={styles.positionText}>
           <Name>{this.state.profile.city}</Name>

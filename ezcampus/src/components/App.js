@@ -93,7 +93,7 @@ function App() {
                       />
                       <Route
                         exact
-                        path="/friends"
+                        path="/contacts"
                         component={Friends}
                       />
                       <Route
