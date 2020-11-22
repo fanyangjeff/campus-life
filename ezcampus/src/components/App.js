@@ -9,8 +9,8 @@ import MyPosts from "./PostHistory/MyPosts"
 import PostDetail from './Posts/PostDetail'
 import ProfileEdit from './Profile/ProfileEdit/ProfileEdit'
 import store from '../store/Store'
-import {AutoLoginProvider} from '../contexts/AutoLoginProvider'
-import LoadPosts from '../contexts/LoadPosts'
+import AutoLogin from '../wrappers/AutoLogin'
+import LoadPosts from '../wrappers/LoadPosts'
 import VisitorProfile from './Profile/VisitorProfile/VisitorProfile'
 
 import {
@@ -36,7 +36,7 @@ function App() {
 
   return (
     <LoadPosts>
-    <AutoLoginProvider>
+    <AutoLogin>
       <div className="App">
         <BrowserRouter>
             <SideBar
@@ -110,7 +110,7 @@ function App() {
             />
         </BrowserRouter>
       </div>
-    </AutoLoginProvider>
+    </AutoLogin>
     </LoadPosts>
   );
 }

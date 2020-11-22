@@ -117,22 +117,29 @@ export default class Friends extends Component {
         this.data = this.state.data
         this.history = props.history
         
-        const {isLoggedIn} = store.getState()
-        if (!isLoggedIn) {
-            const action = {type: 'setShowPromptLogIn'}
-            store.dispatch(action)
-            this.history.push('/posts')
-        }
         
     }
 
     componentDidMount() {
-        store.subscribe(() => {
+        setTimeout(() => {
             const {isLoggedIn} = store.getState()
             if (!isLoggedIn) {
+                console.log('not logged in')
+                const action = {type: 'setShowPromptLogIn'}
+                store.dispatch(action)
                 this.history.push('/posts')
             }
-            
+        }, 400)
+     
+        store.subscribe(() => {
+            setTimeout(() => {
+                const {isLoggedIn} = store.getState()
+
+                if (!isLoggedIn) {
+                    console.log(isLoggedIn)
+                    this.history.push('/posts')
+                }
+            }, 300)
         })
     }
 

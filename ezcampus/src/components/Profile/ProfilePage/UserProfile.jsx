@@ -10,12 +10,32 @@ import store from '../../../store/Store';
 
 
 class UserProfile extends React.Component {
+  constructor(props) {
+    super(props)
+    this.history = props.history
+  }
   state={
     redirect: false,
     profile:{}
   }
 
   componentDidMount() {
+    const {isLoggedIn} = store.getState()
+    if (!isLoggedIn) {
+        console.log('not logged in')
+        const action = {type: 'setShowPromptLogIn'}
+        store.dispatch(action)
+        this.history.push('/posts')
+    }
+
+    store.subscribe(() => {
+        const {isLoggedIn} = store.getState()
+        if (!isLoggedIn) {
+            this.history.push('/posts')
+        }
+   
+    })
+
     const {email} = store.getState()
     axios.get("http://server.metaraw.world:3000/users/profile/get", {params: {email}})
     .then(res =>{

@@ -13,13 +13,13 @@ import uuid from 'react-uuid';
 import store from '../../store/Store'
 import axios from 'axios'
 import FormData from 'form-data'
-import FroalaEditor from 'react-froala-wysiwyg';
+
 
 export default class Create extends Component {
     constructor(props) {
         super(props)
         this.history = props.history
-        this.state = {creatorEmail: '', creatorName: '', description: '', title: '', postType: 'furniture trading'};
+        this.state = {creatorEmail: '', creatorName: '', description: '', title: '', postType: 'Free or For Sale'};
     
     }
 
@@ -47,6 +47,7 @@ export default class Create extends Component {
     }
 
     updateType = (e) => {
+        console.log(e.target.value)
         this.setState({postType: e.target.value})
     }
 
@@ -97,7 +98,7 @@ export default class Create extends Component {
             .then(res => {
                 if (res.data.statusCode == 200) {
                     console.log('post has been created')
-                    const action = {type: 'addPost', data: {newPost: [{...this.state, ...otherInfo}]}}
+                    const action = {type: 'addPost', data: {newPost: {...this.state, ...otherInfo}}}
                     store.dispatch(action)
                     this.history.push('/posts')
                 }

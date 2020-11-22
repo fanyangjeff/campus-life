@@ -53,10 +53,10 @@ export const userReducer = (state = initialState, action) => {
         }
 
         case 'addPost': {
-            newState.posts = action.data.newPost.concat(newState.posts)
-            const post = action.data.newPost[0]
-            const postId = action.data.newPost[0].postId
-            newState.postsMap = {...newState.postsMap, postId: post}
+            let newPostList = [action.data.newPost]
+            const newPost = action.data.newPost
+            newState.posts = newPostList.concat(newState.posts)
+            newState.postsMap[newPost.postId] = newPost
             return newState
         }
 

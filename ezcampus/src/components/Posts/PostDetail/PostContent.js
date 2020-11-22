@@ -4,7 +4,7 @@ import BigProfile from "../icons/BigProfile.png"
 import styled from "styled-components";
 import store from '../../../store/Store'
 import ReactHtmlParser from 'react-html-parser'
-
+import axios from 'axios'
 class PostContent extends React.Component {
 
     constructor(props) {
@@ -23,25 +23,20 @@ class PostContent extends React.Component {
           postType: ''
         }
       }
-      
-      this.unsubscribe = store.subscribe(() => {
-        const {postsMap} = store.getState()
-        console.log(postsMap.data)
-        this.setState({data: postsMap[this.postId]})
-      })
-
     }
 
     componentDidMount() {
-        const {postsMap} = store.getState()
-        console.log(postsMap.data)
-        this.setState({data: postsMap[this.postId]})
+          axios.get('http://server.metaraw.world:3000/posts/get_a_post_detail', {params: {postId:this.postId}})
+          .then(res => {
+              const post = res.data.data
+              console.log(post)
+              this.setState({data: post})
+          })
+          .catch(err => {
+            console.log(err)
+          })
     }
 
-
-    componentWillUnmount() {
-      this.unsubscribe()
-    }
 
     render() {
       return (
