@@ -11,6 +11,8 @@ import ProfileEdit from './Profile/ProfileEdit/ProfileEdit'
 import store from '../store/Store'
 import {AutoLoginProvider} from '../contexts/AutoLoginProvider'
 import LoadPosts from '../contexts/LoadPosts'
+import VisitorProfile from './Profile/VisitorProfile/VisitorProfile'
+
 import {
   BrowserRouter,
   NavLink,
@@ -99,7 +101,8 @@ function App() {
                         component={PostDetail}
                       />
                       <Route
-                        path="/people/:userId"
+                        path="/profile/:userId"
+                        component={VisitorProfile}
                       />
                     </Switch>
                   </div>
