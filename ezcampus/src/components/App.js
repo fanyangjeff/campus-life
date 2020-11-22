@@ -35,10 +35,11 @@ function App() {
   }, [])
 
   return (
-    <LoadPosts>
-    <AutoLogin>
+
       <div className="App">
         <BrowserRouter>
+        <LoadPosts>
+        <AutoLogin>
             <SideBar
                 routes={
                   <div>
@@ -109,10 +110,10 @@ function App() {
                   </div>
                 }
             />
+          </AutoLogin>
+          </LoadPosts>
         </BrowserRouter>
       </div>
-    </AutoLogin>
-    </LoadPosts>
   );
 }
 

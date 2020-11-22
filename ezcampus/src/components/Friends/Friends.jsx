@@ -131,8 +131,10 @@ export default class Friends extends Component {
                 store.dispatch(action)
                 this.history.replace('/posts')
             }
-        }, 400)
+        }, 300)
      
+<<<<<<< HEAD
+=======
         store.subscribe(() => {
             setTimeout(() => {
                 const {isLoggedIn} = store.getState()
@@ -144,6 +146,7 @@ export default class Friends extends Component {
                 }
             }, 300)
         })
+>>>>>>> ad6291801b1b7756126278141ccc3f9ad957a159
     }
 
 
