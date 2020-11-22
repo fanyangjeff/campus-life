@@ -83,7 +83,7 @@ class LoginPage extends Component{
         })
         .then(res => {
             //console.log(res)
-            if (res.data.statusCode == 200) {
+            if (res.data.statusCode === 200) {
                 const action = {
                     type: 'setEmailAndUserName',
                     data: {
@@ -130,7 +130,7 @@ class LoginPage extends Component{
             'password': password
         })
         .then(res => {
-            if (res.data.statusCode == 200) {
+            if (res.data.statusCode === 200) {
                 console.log(res.data)
                 const action = {
                     type: 'setEmailAndUserName',
@@ -151,7 +151,7 @@ class LoginPage extends Component{
         .catch(err => {
             if (!err.response) return
             const errRes = err.response
-            if (errRes.status == 403) {
+            if (errRes.status === 403) {
                 console.log(errRes.data)
                 alert(errRes.data.message)
             }
@@ -190,9 +190,9 @@ class LoginPage extends Component{
                             </button>
                         </div>
                         <form style={login} className="input-group_li" onSubmit={this.handleLogin}>
-                            <input type="text" className="input-field" placeholder="Email" onChange={this.handleEmailChange}/>
+                            <input type="text" className="input-field" placeholder="Email" required={'required'} onChange={this.handleEmailChange}/>
                             <div className={'wrapper'}>
-                                 <input type={type} className="input-field-password" placeholder="Password" onChange={this.handlePasswordChange}/>
+                                 <input type={type} className="input-field-password" required={'required'} placeholder="Password" onChange={this.handlePasswordChange}/>
                                  <i className={"faeye"} onClick={this.handlePasswordDisplay}>{this.eye}</i>
                                  {/*ignore icon bug*/}
                                  <span></span>
@@ -221,10 +221,10 @@ class LoginPage extends Component{
                         </form>
 
                         <form style={signup} className="input-group_li" onSubmit={this.handleSignUp}>
-                            <input type="text" className="input-field" placeholder="Name" onChange={this.handleUserNameChange}/>
-                            <input type="email" className="input-field" placeholder="Email" onChange={this.handleEmailChange}/>
+                            <input type="text" className="input-field" placeholder="Name" required={'required'}  onChange={this.handleUserNameChange}/>
+                            <input type="email" className="input-field" placeholder="Email" required={'required'}  onChange={this.handleEmailChange}/>
                             <div className={'wrapper'}>
-                                 <input type={type} className="input-field-password" placeholder="Password" onChange={this.handlePasswordChange}/>
+                                 <input type={type} className="input-field-password" placeholder="Password" required={'required'}  onChange={this.handlePasswordChange}/>
                                 <i className={"faeye"} onClick={this.handlePasswordDisplay}>{this.eye}</i>
                                 <span></span>
                             </div>
