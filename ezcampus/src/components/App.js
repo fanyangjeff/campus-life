@@ -5,6 +5,7 @@ import React, { useState, useEffect } from 'react'
 import Create from "./Create/Create";
 import Friends from "./Friends/Friends"
 import Section from "./ResponsiveSection/Section"
+import MyPosts from "./PostHistory/MyPosts"
 import PostDetail from './Posts/PostDetail'
 import ProfileEdit from './Profile/ProfileEdit/ProfileEdit'
 import store from '../store/Store'
@@ -67,6 +68,7 @@ function App() {
                       <Route
                         exact
                         path="/posts/my"
+                        component={MyPosts}
                       />
                       <Route
                         exact

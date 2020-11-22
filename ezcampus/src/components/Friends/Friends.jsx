@@ -51,76 +51,70 @@ const PandaSvg = () => (
   );
   const PandaIcon = props => <Icon component={PandaSvg} {...props} />;
 
-
-/* data will need for Friend:
-    1. id(for user database)
-    2. Name
-    3. friend's profile photo
- */
-
-const data = [
-    {
-        id: '2232f-usff-2323f23-2fdsf',
-        name: 'Liyuan Lin',
-        /*img: null*/
-    },
-    {
-        id: '2232f-usrd-2323f23-2fdsf',
-        name: 'Guoyi Li',
-        /*img: null*/
-    },
-    {
-        id: '2342f-usfr-2323f23-2fdsf',
-        name: 'Hang Gao',
-        /*img: null*/
-    },
-    {
-        id: '2345f-usgt-2323f23-2fdsf',
-        name: 'Fan Yang',
-        /*img: null*/
-    },
-    {
-        id: '2232f-ushy-2323f23-2fdsf',
-        name: 'Xiaoxiao Li',
-        /*img: null*/
-    },
-    {
-        id: '2276f-usot-2323f23-2fdsf',
-        name: 'Iris Zhang',
-        /*img: null*/
-    },
-    {
-        id: '2290f-us34-2323f23-2fdsf',
-        name: 'Minghe Yang',
-        /*img: null*/
-    },
-    {
-        id: '2256f-usdy-2323f23-2fdsf',
-        name: 'Yanling Huang',
-        /*img: null*/
-    },
-    {
-        id: '2234f-usdf-2323f23-2fdsf',
-        name: 'Yiming Zhao',
-        /*img: null*/
-    },
-    {
-        id: '2232f-ushy-2323f23-2fdsf',
-        name: 'Vincent Li',
-        /*img: null*/
-    },
-    {
-        id: '2232f-ushy-2323f23-2fdsf',
-        name: 'Yongjia Gu',
-        /*img: null*/
-    }
-    
-]
-
 export default class Friends extends Component {
+    state = {
+        data : [
+            {
+                id: '2232f-usff-2323f23-2fdsf',
+                name: 'Liyuan Lin',
+                /*img: null*/
+            },
+            {
+                id: '2232f-usrd-2323f23-2fdsf',
+                name: 'Guoyi Li',
+                /*img: null*/
+            },
+            {
+                id: '2342f-usfr-2323f23-2fdsf',
+                name: 'Hang Gao',
+                /*img: null*/
+            },
+            {
+                id: '2345f-usgt-2323f23-2fdsf',
+                name: 'Fan Yang',
+                /*img: null*/
+            },
+            {
+                id: '2232f-usgb-2323f23-2fdsf',
+                name: 'Xiaoxiao Li',
+                /*img: null*/
+            },
+            {
+                id: '2276f-usot-2323f23-2fdsf',
+                name: 'Iris Zhang',
+                /*img: null*/
+            },
+            {
+                id: '2290f-us34-2323f23-2fdsf',
+                name: 'Minghe Yang',
+                /*img: null*/
+            },
+            {
+                id: '2256f-usdy-2323f23-2fdsf',
+                name: 'Yanling Huang',
+                /*img: null*/
+            },
+            {
+                id: '2234f-usdf-2323f23-2fdsf',
+                name: 'Yiming Zhao',
+                /*img: null*/
+            },
+            {
+                id: '2232f-usrt-2323f23-2fdsf',
+                name: 'Vincent Li',
+                /*img: null*/
+            },
+            {
+                id: '2232f-ushy-2323f23-2fdsf',
+                name: 'Yingjia Gu',
+                /*img: null*/
+            }
+            
+        ]
+    }
     constructor(props){
         super(props)
-        this.data = data
+        this.data = this.state.data
         this.history = props.history
         
         const {isLoggedIn} = store.getState()
@@ -132,10 +126,6 @@ export default class Friends extends Component {
         
     }
 
-
-    
-    
-
     componentDidMount() {
         store.subscribe(() => {
             const {isLoggedIn} = store.getState()
@@ -146,17 +136,23 @@ export default class Friends extends Component {
         })
     }
 
-
+    handleDelete = friendID => {
+        console.log(friendID);
+        const data = this.state.data.filter(friend => friend.id !== friendID);
+        console.log(data)
+        this.setState({data});
+    }
 
     createFriendList = () => {
         return (
             <div >
-                {this.data.map(
+                {this.state.data.map(
                     data => (
-                        <div className='friend-card-container'>
+                        <div className='friend-card-container' key={data.id}>
                         <Card style={{borderRadius:"10px"}}>
                         <FriendCell 
                             data={data}
+                            onDelete={this.handleDelete}
                         />
                         </Card>
                         </div>
@@ -166,7 +162,7 @@ export default class Friends extends Component {
     }
     render() {
         return (
-            <div class='friend-page'>
+            <div className='friend-page'>
                 <div className='friends-page-header'>
                     <div className="custom-icons-list">
                         <PandaIcon style={{ fontSize: '60px' }} />
