@@ -229,7 +229,7 @@ class SideBar extends React.Component {
 
                         <Menu.Item key="/contacts" icon={<UserOutlined/>}>
                             Contacts
-                            <NavLink to="/contacts"/>
+                            <NavLink to={{pathname: '/contacts', state: {from:this.props.location.pathname}}}/>
                         </Menu.Item>
                             
                         <Menu.Item key="/message" icon={<DesktopOutlined/>}>

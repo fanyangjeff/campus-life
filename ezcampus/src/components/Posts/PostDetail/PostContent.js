@@ -26,10 +26,12 @@ class PostContent extends React.Component {
     }
 
     componentDidMount() {
+          console.log(this.props.history)
+          console.log(this.props.history.location)
           axios.get('http://server.metaraw.world:3000/posts/get_a_post_detail', {params: {postId:this.postId}})
           .then(res => {
               const post = res.data.data
-              console.log(post)
+              //console.log(post)
               this.setState({data: post})
           })
           .catch(err => {

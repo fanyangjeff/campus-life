@@ -23,7 +23,7 @@ export default class PostCell extends Component {
             }
         }
         store.dispatch(action)
-        this.history.push( `/posts/${this.id}`)
+        //this.history.push( `/posts/${this.id}`)
     }
 
     render() {
@@ -63,11 +63,11 @@ export default class PostCell extends Component {
                 </div>
  
                 <div className= 'single-post-detailButton-box'>
-                   
+                   <Link to={`/posts/${this.id}`}>
                         <Button variant='light' className='single-post-detailButton' onClick={this.handleClick}>View Details</Button>
                         {/* <DislikeOutlined className='single-post-likeButton' />
                         <LikeOutlined className='single-post-likeButton'/> */}
-                    
+                    </Link>
                 </div>
                   
             </div>

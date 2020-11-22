@@ -43,7 +43,10 @@ export default class MyPosts extends Component {
             setTimeout(() => {
                 const {isLoggedIn} = store.getState()
                 if (!isLoggedIn) {
-                    this.history.push('/posts')
+                    if (this.props.history.location.pathname == '/posts/my') {
+                        console.log(this.props.history.location)
+                        this.history.replace('/posts')
+                    }
                 }
             }, 300)
         })

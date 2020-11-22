@@ -95,6 +95,7 @@ function App() {
                         exact
                         path="/contacts"
                         component={Friends}
+                        
                       />
                       <Route
                         path="/posts/:postId"
