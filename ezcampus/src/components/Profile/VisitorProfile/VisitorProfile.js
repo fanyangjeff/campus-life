@@ -67,10 +67,12 @@ class VisitorProfile extends React.Component {
         <div style={styles.nameText}>
           <Name>{this.state.profile.userName}</Name>
         </div>
-        <div style={styles.positionText}>
-          <Name>{this.state.profile.city}</Name>
-          <Name>{this.state.profile.state}</Name>
-        </div>
+        {this.state.profile.city || this.state.profile.state?
+           <div style={styles.positionText}>
+            <Name>{this.state.profile.city}</Name>
+            <Name>{this.state.profile.state}</Name>
+          </div> : null
+        }
         <div style={styles.positionText}>
           <Button
                 type=""

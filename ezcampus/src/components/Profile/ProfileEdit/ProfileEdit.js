@@ -399,7 +399,6 @@ class ProfileEdit extends React.Component {
                 tempUser: {                   
                     ...prevState.tempUser,    
                     contactEmail: e.target.value,
-                    loginEmail:e.target.value,
                 }
               }))
               
@@ -422,8 +421,8 @@ class ProfileEdit extends React.Component {
 
           <Input
             style={{ height: "80%" }}
-            placeholder={this.state.tempUser.phoneNumber}
-            value={this.state.tempUser.phoneNumber}
+            placeholder={this.state.tempUser.phone}
+            value={this.state.tempUser.phone}
             onChange={(e) => {
               // change the value of the tempUser
               this.setState(prevState => ({

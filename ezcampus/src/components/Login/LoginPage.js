@@ -131,7 +131,6 @@ class LoginPage extends Component{
         })
         .then(res => {
             if (res.data.statusCode === 200) {
-                console.log(res.data)
                 const action = {
                     type: 'setEmailAndUserName',
                     data: {
@@ -139,13 +138,27 @@ class LoginPage extends Component{
                         userName: username
                     }
                 }
-
+                axios.post('http://server.metaraw.world:3000/users/profile/save', {
+                    'loginEmail': email,
+                    'userName': username, 
+                    "aboutMe": "",
+                    "avatarlink": "",
+                    "city": "",
+                    "contactEmail": "",
+                    "phone": "",
+                    "state": ""
+                })
+                .then(res => {
+                    if (res.data.statusCode === 200) {
+                        console.log('profile has been saved')
+                    }
+                })
                 store.dispatch(action)
-                this.props.closePopup()
-
+                // this.props.closePopup()
                 //auto login next time
                 if (this.state.rememberUser)
                     localStorage.setItem('ezcampus_user_auto_login', {email: this.state.email, password: this.state.password})
+                
             }
         })
         .catch(err => {
@@ -156,6 +169,7 @@ class LoginPage extends Component{
                 alert(errRes.data.message)
             }
         })
+       
     }
 
     handleEmailVerification=()=>{
