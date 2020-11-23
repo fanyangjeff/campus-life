@@ -15,15 +15,17 @@ export default class MyPosts extends Component {
         super(props)
         this.history = props.history
 		const { posts, email } = store.getState();
-		const myPosts = posts.filter(post => post.creatorEmail === email)
-		this.setState({myPosts})
+		// const myPosts = posts.filter(post => post.creatorEmail === email)
+		// this.setState({myPosts})
         this.unsubscribe = store.subscribe(() => {
-            const {currentSelectedPostType} = store.getState()
-            if (currentSelectedPostType) {
-                const customizedPosts = posts.filter(post => post.postType == currentSelectedPostType)
-                //console.log(customizedPosts)
-                this.setState({myPosts: customizedPosts})
-            }
+            // const {currentSelectedPostType} = store.getState()
+            // if (currentSelectedPostType) {
+            //     const customizedPosts = posts.filter(post => post.postType == currentSelectedPostType)
+            //     //console.log(customizedPosts)
+            //     this.setState({myPosts: customizedPosts})
+            // }
+            const myPosts = posts.filter(post => post.creatorEmail === email)
+		    this.setState({myPosts})
         })
 	}
 
@@ -43,11 +45,11 @@ export default class MyPosts extends Component {
             const {posts, email, currentSelectedPostType} = store.getState()
             const myPosts = posts.filter(post => post.creatorEmail === email)
             this.setState({myPosts})
-            if (currentSelectedPostType) {
-                const customizedPosts = posts.filter(post => post.postType == currentSelectedPostType)
-                //console.log(customizedPosts)
-                this.setState({myPosts: customizedPosts})
-            }
+            // if (currentSelectedPostType) {
+            //     const customizedPosts = posts.filter(post => post.postType == currentSelectedPostType)
+            //     //console.log(customizedPosts)
+            //     this.setState({myPosts: customizedPosts})
+            // }
         }, 300)
     }
     
@@ -56,10 +58,10 @@ export default class MyPosts extends Component {
         this.unsubscribe()
     }
 
-    handleShowAll = () => {
-        const action = {type: 'unsetCurrentPostType'}
-        store.dispatch(action)
-    }
+    // handleShowAll = () => {
+    //     const action = {type: 'unsetCurrentPostType'}
+    //     store.dispatch(action)
+    // }
 
     switcherOutlinedHeader = () => {
         return (
@@ -70,9 +72,9 @@ export default class MyPosts extends Component {
                 <div className='posts-homeOutLined'>
                     Post History
                 </div>
-                <div style={{float: 'right', marginRight: '50px'}}>
+                {/* <div style={{float: 'right', marginRight: '50px'}}>
                         <Button variant='secondary' onClick={this.handleShowAll}>Show All</Button>
-                </div>
+                </div> */}
             </div>
         )
     }

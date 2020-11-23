@@ -5,6 +5,7 @@ import { Card } from 'antd';
 import {Redirect} from 'react-router-dom'
 import Icon from '@ant-design/icons';
 import store from '../../store/Store'
+import axios from 'axios';
 
 const PandaSvg = () => (
     <svg viewBox="0 0 1024 1024" width="1em" height="1em" fill="currentColor">
@@ -54,72 +55,13 @@ const PandaSvg = () => (
 
 export default class Friends extends Component {
     state = {
-        data : [
-            {
-                id: '2232f-usff-2323f23-2fdsf',
-                name: 'Liyuan Lin',
-                /*img: null*/
-            },
-            {
-                id: '2232f-usrd-2323f23-2fdsf',
-                name: 'Guoyi Li',
-                /*img: null*/
-            },
-            {
-                id: '2342f-usfr-2323f23-2fdsf',
-                name: 'Hang Gao',
-                /*img: null*/
-            },
-            {
-                id: '2345f-usgt-2323f23-2fdsf',
-                name: 'Fan Yang',
-                /*img: null*/
-            },
-            {
-                id: '2232f-usgb-2323f23-2fdsf',
-                name: 'Xiaoxiao Li',
-                /*img: null*/
-            },
-            {
-                id: '2276f-usot-2323f23-2fdsf',
-                name: 'Iris Zhang',
-                /*img: null*/
-            },
-            {
-                id: '2290f-us34-2323f23-2fdsf',
-                name: 'Minghe Yang',
-                /*img: null*/
-            },
-            {
-                id: '2256f-usdy-2323f23-2fdsf',
-                name: 'Yanling Huang',
-                /*img: null*/
-            },
-            {
-                id: '2234f-usdf-2323f23-2fdsf',
-                name: 'Yiming Zhao',
-                /*img: null*/
-            },
-            {
-                id: '2232f-usrt-2323f23-2fdsf',
-                name: 'Vincent Li',
-                /*img: null*/
-            },
-            {
-                id: '2232f-ushy-2323f23-2fdsf',
-                name: 'Yingjia Gu',
-                /*img: null*/
-            }
-            
-        ]
+        data : []
     }
     constructor(props){
         super(props)
         this.data = this.state.data
         this.history = props.history
-        console.log(this.props.location)
-        
-        
+        this.myEmail = store.getState().email
     }
 
     componentDidMount() {
@@ -137,10 +79,19 @@ export default class Friends extends Component {
 
 
     handleDelete = friendID => {
-        console.log(friendID);
-        const data = this.state.data.filter(friend => friend.id !== friendID);
-        console.log(data)
-        this.setState({data});
+        // console.log(friendID);
+        axios.delete("http://server.metaraw.world:3000/users/contact/delete",{
+            params: {
+                myEmail: this.myEmail,
+                userEmail: friendID
+            }
+        })
+        .then(res => {
+            if(res.data.statusCode == 200){
+                const data = this.state.data.filter(friend => friend.id !== friendID);
+                this.setState({data});
+            }
+        })
     }
 
     createFriendList = () => {
@@ -177,3 +128,59 @@ export default class Friends extends Component {
         )
     }
 }
+
+ // {
+            //     id: '2232f-usff-2323f23-2fdsf',
+            //     name: 'Liyuan Lin',
+            //     /*img: null*/
+            // },
+            // {
+            //     id: '2232f-usrd-2323f23-2fdsf',
+            //     name: 'Guoyi Li',
+            //     /*img: null*/
+            // },
+            // {
+            //     id: '2342f-usfr-2323f23-2fdsf',
+            //     name: 'Hang Gao',
+            //     /*img: null*/
+            // },
+            // {
+            //     id: '2345f-usgt-2323f23-2fdsf',
+            //     name: 'Fan Yang',
+            //     /*img: null*/
+            // },
+            // {
+            //     id: '2232f-usgb-2323f23-2fdsf',
+            //     name: 'Xiaoxiao Li',
+            //     /*img: null*/
+            // },
+            // {
+            //     id: '2276f-usot-2323f23-2fdsf',
+            //     name: 'Iris Zhang',
+            //     /*img: null*/
+            // },
+            // {
+            //     id: '2290f-us34-2323f23-2fdsf',
+            //     name: 'Minghe Yang',
+            //     /*img: null*/
+            // },
+            // {
+            //     id: '2256f-usdy-2323f23-2fdsf',
+            //     name: 'Yanling Huang',
+            //     /*img: null*/
+            // },
+            // {
+            //     id: '2234f-usdf-2323f23-2fdsf',
+            //     name: 'Yiming Zhao',
+            //     /*img: null*/
+            // },
+            // {
+            //     id: '2232f-usrt-2323f23-2fdsf',
+            //     name: 'Vincent Li',
+            //     /*img: null*/
+            // },
+            // {
+            //     id: '2232f-ushy-2323f23-2fdsf',
+            //     name: 'Yingjia Gu',
+            //     /*img: null*/
+            // }

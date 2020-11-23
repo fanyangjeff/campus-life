@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import BigProfile from "../Sidebar/icons/BigProfile.png"
 import { UserDeleteOutlined, MessageOutlined } from '@ant-design/icons';
-import { Button } from 'antd';
+import { Button, Modal, Space} from 'antd';
 
 export default class FriendCell extends Component {
     constructor(props){
@@ -9,6 +9,22 @@ export default class FriendCell extends Component {
         this.data = this.props.data
         this.friendID = this.data.id
         
+    }
+    state = { visible: false };
+
+    verifyDelete = () =>{
+        this.setState({
+            visible: true,
+          });
+    };
+
+    handleDelete = () => {
+        this.props.onDelete(this.friendID)
+        this.setState({visible: false})
+    }
+
+    handleCancel= () => {
+        this.setState({visible: false})
     }
 
     render() {
@@ -37,7 +53,15 @@ export default class FriendCell extends Component {
                     <Button shape="circle" 
                         icon={<UserDeleteOutlined />} 
                         size={"30px"} 
-                        onClick={() => this.props.onDelete(this.friendID)}/>
+                        onClick={this.verifyDelete}
+                        />
+                        <Modal
+                            visible={this.state.visible}
+                            onOk={this.handleDelete}
+                            onCancel={this.handleCancel}
+                         >
+                        <p>Comfirm to remove <span style={{fontWeight:"bold"}}>{name}</span> from contact?</p>
+                        </Modal>
                     </div>
                 </div>
             </div>
