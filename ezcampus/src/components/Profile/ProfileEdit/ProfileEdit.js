@@ -179,6 +179,8 @@ class ProfileEdit extends React.Component {
     .then(res => {
       if (res.data.statusCode === 200) {
           console.log('profile has been saved')
+          const action = {type: 'setUserName', data: {userName: this.state.tempUser.userName}}
+          store.dispatch(action)
       }
       this.setState({
         editing: false,
