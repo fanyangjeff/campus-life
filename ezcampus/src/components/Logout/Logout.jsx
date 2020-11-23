@@ -21,7 +21,7 @@ export default class Logout extends Component {
             type: 'unsetEmailAndUserName'
         }
         store.dispatch(action)
-        localStorage.removeItem('ezcampus_username')
+        //localStorage.removeItem('ezcampus_username')
         localStorage.removeItem('ezcampus_user_password')
         this.closeModal()
     }

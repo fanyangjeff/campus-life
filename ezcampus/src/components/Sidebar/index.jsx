@@ -23,6 +23,17 @@ const {SubMenu} = Menu;
 class SideBar extends React.Component {
     constructor(props) {
         super(props)
+
+        this.state = {
+            collapsed: false,
+            showPopUPLogin: false,
+            showPromptLogIn: false,
+            isEmailVerification: false,
+            userName: 'Guest',
+            isLoggedIn: false,
+            currentSelectedMenuItem: '1'
+        }
+
         this.unsubscribe = store.subscribe(() => {
             const {userName, isLoggedIn, showPromptLogIn} = store.getState()
             this.setState({userName, isLoggedIn, showPromptLogIn}, () => {
@@ -33,56 +44,13 @@ class SideBar extends React.Component {
         })
     }
    
-    // changeKey = () => {
-    //     console.log("hello")
-    //     switch (window.location.pathname) {
-    //       case "/posts":
-    //         this.setState({
-    //           defaultkey: ["1"]
-    //         })
-            
-    //         break;
-    //      case "/groups":
-    //         this.setState({
-    //             defaultkey: ["2"]
-    //         })
-    //         break;
-    //       case "/posts/my":
-    //         this.setState({
-    //           defaultkey: ["3"]
-    //         })
-    //         break;
-    //       case "/contacts":
-    //         this.setState({
-    //           defaultkey: ["4"]
-    //         })
-    //         break;
-    //        case "/message":
-    //         this.setState({
-    //            defaultkey: ["5"]
-    //         })
-    //             break;
-    //       default:
-    //         break;
-    //     }
-    //   };
-
-    state = {
-        collapsed: false,
-        showPopUPLogin: false,
-        showPromptLogIn: false,
-        isEmailVerification: false,
-        userName: 'Guest',
-        isLoggedIn: false,
-        currentSelectedMenuItem: '1'
-    };
-
 
     scomponentWillUnmount() {
         this.unsubscribe()
     }
 
     onTogglePopup = () => {
+        console.log('TOGGLE POPUP!!!!!')
         this.setState((prevState) => {
             return {
                 showPopUPLogin: !prevState.showPopUPLogin,
@@ -125,6 +93,7 @@ class SideBar extends React.Component {
     }
 
     render() {
+
         const { location } = this.props;
         return (
             <Layout style={{minHeight: '100vh'}}>
@@ -180,7 +149,7 @@ class SideBar extends React.Component {
                         
                         {
                             this.state.showPopUPLogin && this.state.isLoggedIn?
-                                <Logout closePopup={this.onTogglePopup}/>:null
+                            <Logout closePopup={this.onTogglePopup}/>:null
                         }
                         
                         {
