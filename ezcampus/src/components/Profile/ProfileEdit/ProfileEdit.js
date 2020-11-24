@@ -22,7 +22,6 @@ class ProfileEdit extends React.Component {
     editing: true,
     file: null,
     userNameEmpty: true,
-    contactEmailEmpty: true,
     loading: true,
     avatar: null,
     loadingAvatar: false,
@@ -160,6 +159,12 @@ class ProfileEdit extends React.Component {
   };
   componentDidMount() {
     const {email} = store.getState()
+    this.setState(prevState => ({
+      tempUser: {                   
+          ...prevState.tempUser,    
+          loginEmail:  email, 
+      }
+    }))
     axios.get("http://server.metaraw.world:3000/users/profile/get", {params: {email}})
     .then(res =>{
       if(res.data.statusCode === 200){
@@ -171,9 +176,26 @@ class ProfileEdit extends React.Component {
       }
     })
   }
+  nameInSize = () => {
+    return (
+      this.state.tempUser.userName.length <= 20
+    );
+  };
     
 
-  saveAll(){
+  saveAll = async () =>{
+    if (!this.nameInSize()) {
+      message.warning(
+        "Name is too long, please double check or put a nickname. "
+      );
+      return;
+    }
+    if (this.state.tempUser.userName.length === 0) {
+      message.warning(
+        "Username can't be empty. "
+      );
+      return;
+    }
     axios.post('http://server.metaraw.world:3000/users/profile/save', {
       ...this.state.tempUser})
     .then(res => {
@@ -228,9 +250,6 @@ class ProfileEdit extends React.Component {
           <InputLabel>
             Username
             <ErrorLabel>{"\u00A0"}*</ErrorLabel>
-            {/* {this.state.firstName.length > 20 ? (
-              <ErrorLabel>*Too Long</ErrorLabel>
-            ) : null} */}
           </InputLabel>
 
           <Input
@@ -240,7 +259,7 @@ class ProfileEdit extends React.Component {
             onChange={(e) => {
               // change the value of the tempUser
               this.setState({
-                firstNameEmpty: e.target.value === "",
+                userNameEmpty: e.target.value === "",
               });
               this.setState(prevState => ({
                 tempUser: {                   
@@ -279,7 +298,7 @@ class ProfileEdit extends React.Component {
               showUploadList={false}
               action="https://www.mocky.io/v2/5cc8019d300000980a055e76" 
               beforeUpload={this.validateAvatar}
-              transformFile={this.compressAvatar}
+              transformFile={this.compressAvatari}
               onChange={this.handleChange}
             >
               {this.state.loadingAvatar ? (
@@ -392,9 +411,7 @@ class ProfileEdit extends React.Component {
             style={{ height: "80%" }}
             value={this.state.tempUser.contactEmail}
             onChange={(e) => {
-              this.setState({
-                contactEmailEmpty: e.target.value === "",
-              });
+             
               this.setState(prevState => ({
                 tempUser: {                   
                     ...prevState.tempUser,    
