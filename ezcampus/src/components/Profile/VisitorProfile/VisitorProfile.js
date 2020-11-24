@@ -21,6 +21,7 @@ class VisitorProfile extends React.Component {
       const userEmail = store.getState().email;
       const email = this.props.match.params.userId;
       if(userEmail !== email){
+        
         axios.get("http://server.metaraw.world:3000/users/profile/get", {params: {email, userEmail}})
         .then(res =>{
           if(res.data.statusCode === 200){
@@ -54,6 +55,9 @@ class VisitorProfile extends React.Component {
       if(res.data.statusCode === 200){
         this.setState({contactM: "Remove Contact"})
       }
+    })
+    .catch(err => {
+      console.log(err)
     })
   }
 

@@ -80,6 +80,8 @@ export default class Friends extends Component {
                 console.log('loading user info')
             }
         }, 5)
+
+        
         let friendInterval = setInterval(() => {
             const {isLoading} = store.getState()
             if(!isLoading){
