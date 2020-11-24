@@ -15,8 +15,28 @@ class VisitorProfile extends React.Component {
     profile:{},
     contactM: "",
   }
+  constructor(props) {
+    super(props)
+    this.history = props.history
+  }
 
   componentDidMount() {
+  
+    const {isLoggedIn} = store.getState()
+    if (!isLoggedIn) {
+        console.log('not logged in')
+        const action = {type: 'setShowPromptLogIn'}
+        store.dispatch(action)
+        this.history.push('/posts')
+    }
+
+    store.subscribe(() => {
+        const {isLoggedIn} = store.getState()
+        if (!isLoggedIn) {
+            this.history.push('/posts')
+        }
+    
+    })
     setTimeout(() => {
       const userEmail = store.getState().email;
       const email = this.props.match.params.userId;
@@ -90,90 +110,89 @@ class VisitorProfile extends React.Component {
       );
     }
     return (
-    <div>
-      <Card
-       style ={{width:"60%"}}
-        headStyle={{ background: "#DEE0EB" }}
-      >
-        <div style={styles.avatar}>
-          {!this.state.profile.avatarlink ?
-            <AvatarImage
-              src={BigProfile}
-            >
-            </AvatarImage>  :
-            <AvatarImage
-            src={this.state.profile.avatarlink}
-            ></AvatarImage>
-          }
-         
-        </div>
-        <div style={styles.nameText}>
-          <Name>{this.state.profile.userName}</Name>
-        </div>
-        {this.state.profile.city || this.state.profile.state?
-           <div style={styles.positionText}>
-            <Name>{this.state.profile.city}</Name>
-            <Name>{this.state.profile.state}</Name>
-          </div> : null
-        }
-        <div style={styles.positionText}>
-          <Button
-                type=""
-                style={{
-                  height: "35px",
-                  marginTop:"5px",
-                  width: "140px",
-                  backgroundColor: "#545770",
-                  color: "white",
-                }}
-                onClick={this.handleAddOrRemoveContact}
+    <FullPageContainer>
+      <ProfileContainer>
+        <Card
+          style ={{width:"60%"}}
+          headStyle={{ background: "#DEE0EB" }}
+        >
+          <div style={styles.avatar}>
+            {!this.state.profile.avatarlink ?
+              <AvatarImage
+                src={BigProfile}
               >
-                {this.state.contactM}
-          </Button>    
-        </div>
-        
-        
-      <div>
-          
-          <TitleField>
-            <img
-              src={contactIcon}
-              alt="contact"
-              style={{ width: 23, height: 23, marginRight: 10 }}
-            ></img>
-            About Me
-          </TitleField>
-          <div style={styles.fieldText}>
-              {this.state.profile.aboutMe}
+              </AvatarImage>  :
+              <AvatarImage
+              src={this.state.profile.avatarlink}
+              ></AvatarImage>
+            }
           </div>
-      </div>
-      <div>
-          <TitleField>
-            <img
-              src={contactIcon}
-              alt="contact"
-              style={{ width: 23, height: 23, marginRight: 10 }}
-            ></img>
-            Contact Info
-          </TitleField>
-          <div style={styles.fieldText}>
-            Contact Email:
-            <div style={styles.text}>
-              {this.state.profile.contactEmail}
+          <div style={styles.nameText}>
+            <Name>{this.state.profile.userName}</Name>
+          </div>
+          {this.state.profile.city || this.state.profile.state?
+            <div style={styles.positionText}>
+              <Name>{this.state.profile.city}</Name>
+              <Name>{this.state.profile.state}</Name>
+            </div> : null
+          }
+          <div style={styles.positionText}>
+            <Button
+                  type=""
+                  style={{
+                    height: "35px",
+                    marginTop:"5px",
+                    width: "140px",
+                    backgroundColor: "#545770",
+                    color: "white",
+                  }}
+                  onClick={this.handleAddOrRemoveContact}
+                >
+                  {this.state.contactM}
+            </Button>    
+          </div>
+        <div>
+            <TitleField>
+              <img
+                src={contactIcon}
+                alt="contact"
+                style={{ width: 23, height: 23, marginRight: 10 }}
+              ></img>
+              About Me
+            </TitleField>
+            <div style={styles.fieldText}>
+                {this.state.profile.aboutMe}
+            </div>
+        </div>
+        <div>
+            <TitleField>
+              <img
+                src={contactIcon}
+                alt="contact"
+                style={{ width: 23, height: 23, marginRight: 10 }}
+              ></img>
+              Contact Info
+            </TitleField>
+            <div style={styles.fieldText}>
+              Contact Email:
+              <div style={styles.text}>
+                {this.state.profile.contactEmail}
+              </div>
+            </div>
+            <div style={styles.fieldText}>
+              Phone:
+              <div style={styles.text}>
+                {this.state.profile.phone}
+              </div>
             </div>
           </div>
-          <div style={styles.fieldText}>
-            Phone:
-            <div style={styles.text}>
-               {this.state.profile.phone}
-            </div>
-          </div>
-        </div>
-      
-      </Card>
+        
+        </Card>
+      </ProfileContainer>
+    </FullPageContainer>
      
         
-    </div>
+ 
     )
   }
 }
@@ -202,6 +221,17 @@ const TitleField = styled.div`
   color: #545871;
   opacity: 1;
   word-break: break-word;
+`;
+const ProfileContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: start;
+  justify-content: space-around;
+  height: 100vh;
+`;
+const FullPageContainer = styled.div`
+    background-color: #f5f6fa;
+    width: 100%;
 `;
 
 const styles = {
