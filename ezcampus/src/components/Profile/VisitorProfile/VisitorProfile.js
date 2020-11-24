@@ -12,26 +12,65 @@ import {withRouter} from "react-router-dom";
 
 class VisitorProfile extends React.Component {
   state={
-    profile:{}
+    profile:{},
+    contactM: "",
   }
 
   componentDidMount() {
-    const myemail = store.getState().email;
-    const email = this.props.match.params.userId;
-    if(myemail !== email){
-      axios.get("http://server.metaraw.world:3000/users/profile/get", {params: {email}})
-      .then(res =>{
-        if(res.data.statusCode === 200){
-          this.setState({
-            profile:res.data.profile
-          },() =>{
-            // console.log(this.state.profile)
-          })
-        }
-      })
-    }
-   
-    
+    setTimeout(() => {
+      const userEmail = store.getState().email;
+      const email = this.props.match.params.userId;
+      if(userEmail !== email){
+        axios.get("http://server.metaraw.world:3000/users/profile/get", {params: {email, userEmail}})
+        .then(res =>{
+          if(res.data.statusCode === 200){
+            this.setState({
+              profile:res.data.profile,
+            },() =>{
+              // console.log(this.state.profile)
+            })
+            //console.log(res.data.isInContacts)
+            if(!res.data.isInContacts){
+              this.setState({contactM:"Add to Contact"})
+            }
+            else{
+              this.setState({contactM:"Remove Contact"})
+            }
+          }
+        })
+      }
+    }, 300)
+  }
+
+  handleAddOrRemoveContact = () => {
+    this.state.contactM === "Add to Contact" ? this.handleAddToContact(): this.handleDeleteContact()
+  }
+
+  handleAddToContact = () => {
+    const myEmail = store.getState().email;
+    const userEmail = this.props.match.params.userId;
+    axios.post("http://server.metaraw.world:3000/users/contact/add_a_contact",{myEmail,userEmail})
+    .then(res => {
+      if(res.data.statusCode === 200){
+        this.setState({contactM: "Remove Contact"})
+      }
+    })
+  }
+
+  handleDeleteContact = () => {
+      const useremail = this.props.match.params.userId;
+      const myEmail = store.getState().email
+        axios.delete("http://server.metaraw.world:3000/users/contact/delete",{
+            params: {
+                myEmail: myEmail,
+                userEmail: useremail
+            }
+        })
+        .then(res => {
+            if(res.data.statusCode === 200){
+              this.setState({contactM:"Add to Contact"})
+            }
+        })
   }
   
   render() {
@@ -83,9 +122,9 @@ class VisitorProfile extends React.Component {
                   backgroundColor: "#545770",
                   color: "white",
                 }}
-                // onClick={}
+                onClick={this.handleAddOrRemoveContact}
               >
-                Add to Contacts
+                {this.state.contactM}
           </Button>    
         </div>
         

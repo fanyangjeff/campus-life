@@ -7,7 +7,7 @@ export default class FriendCell extends Component {
     constructor(props){
         super(props)
         this.data = this.props.data
-        this.friendID = this.data.id
+        this.friendID = this.data.userEmail
         
     }
     state = { visible: false };
@@ -28,11 +28,12 @@ export default class FriendCell extends Component {
     }
 
     render() {
-        const {name} = this.data
+        const userName = this.data.userName
+        console.log(userName)
         return (
             <div>
                 <img
-                    src={BigProfile? BigProfile: null}
+                    src={!this.data.avatarlink? BigProfile: this.data.avatarlink}
                     style={{
                       //marginTop: "100px",
                       width: "50px",
@@ -42,7 +43,7 @@ export default class FriendCell extends Component {
                     }}
                     alt="default profile pic"
                   />
-                {name}
+                {userName}
                 <div className='friend-buttons'>
                     <div className='friend-button-description'>
                     <Button shape="circle" 
@@ -60,7 +61,7 @@ export default class FriendCell extends Component {
                             onOk={this.handleDelete}
                             onCancel={this.handleCancel}
                          >
-                        <p>Comfirm to remove <span style={{fontWeight:"bold"}}>{name}</span> from contact?</p>
+                        <p>Comfirm to remove <span style={{fontWeight:"bold"}}>{userName}</span> from contact?</p>
                         </Modal>
                     </div>
                 </div>
