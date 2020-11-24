@@ -3,6 +3,7 @@ import React from "react";
 import BigProfile from "../icons/BigProfile.png"
 import styled from "styled-components";
 import store from '../../../store/Store'
+import Comment from "./Comment/Comment";
 import ReactHtmlParser from 'react-html-parser'
 import axios from 'axios'
 class PostContent extends React.Component {
@@ -43,7 +44,7 @@ class PostContent extends React.Component {
     render() {
       return (
         <div>
-          <Card style={{width:"80%"}}>
+          <Card style={{width:"100%"}}>
               <Row align="middle">
                 <Col flex="0 1" style={{ margin: "5px" }}>
                   <Avatar size={50} src={BigProfile} alt="" />
@@ -85,7 +86,7 @@ class PostContent extends React.Component {
                 <style type="text/css"></style>
               </div>
           </Card>
-         
+            <Comment history={this.props.history}/>
         </div>
       );
     }

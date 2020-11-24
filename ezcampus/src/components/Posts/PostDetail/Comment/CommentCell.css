@@ -1,0 +1,8 @@
+.CommentCell-name{
+    float:left;
+    cursor:pointer;
+}
+.CommentCell-name:hover{
+    text-decoration: underline;
+    color: blue;
+}
