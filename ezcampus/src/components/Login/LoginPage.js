@@ -17,7 +17,7 @@ class LoginPage extends Component{
             username:"",
             password:"",
             value:{},
-            rememberUser: false
+            rememberUser: true
         }
         this.handleLoginSwitch = this.handleLoginSwitch.bind(this)
         this.handleSignUpSwitch = this.handleSignUpSwitch.bind(this)
@@ -217,8 +217,9 @@ class LoginPage extends Component{
                                 className="check-box"
                                 placeholder="possword"
                                 onChange={this.handleRememberUser}
+                                checked={this.state.rememberUser}
                             />
-                            <strong className={"spanText"}>Remember User</strong>
+                            <strong className={"spanText"}>Remember Me</strong>
                             <br />
                             <strong className={"spanText"}>Do you forget your password ?</strong>
                             <button
