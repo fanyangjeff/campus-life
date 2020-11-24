@@ -28,7 +28,7 @@ export default class PostCell extends Component {
 
     render() {
         const {creatorName, creatorEmail, title, description, views, likes, date, postId, postType} = this.data
-
+        console.log(creatorName)
         return (
             <div className='single-post-container'>
                 <div className='single-post-wrapper'>

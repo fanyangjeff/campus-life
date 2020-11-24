@@ -8,15 +8,7 @@ class Comment extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            commentList: [{id: 1, name: "Jone Doe", comment: 'I am interesting in it. My phone number: 408-xxx-xxxx '},
-                {
-                    id: 2,
-                    name: "Jeffrey li",
-                    comment: 'Can you lower down your price,I can pick up by myself. sending me a message. if you can do that for me. My phone number is: 408-xxx-xxxx'
-                },
-                {id: 3, name: "Liyuan lin", comment: ''},
-                {id: 4, name: "jeff", comment: ''},
-                {id: 5, name: "manxin zhang", comment: ''},],
+            commentList:[],
             commentText: '',
             postId: this.props.history.location.pathname.slice(7),
         }
@@ -28,7 +20,7 @@ class Comment extends Component {
     componentDidMount() {
         // axions read a data of comments
         // responds set state
-        axios.get('#', {
+        axios.get('http://server.metaraw.world:3000/posts/fetchTheCommentList', {
             params: {
                 postId: this.state.postId
             }
@@ -36,7 +28,9 @@ class Comment extends Component {
             .then(res => {
                 if (res.data.statusCode === 200) {
                     console.log(res.data)
-                    alert("success")
+                    this.setState({
+                        commentList: res.data.commentList,
+                    })
                 }
             })
     }
@@ -52,35 +46,66 @@ class Comment extends Component {
     *Todo: Submit the comment text
     **/
     handleSubmit = (event) => {
-
         event.preventDefault()
         const date = new Date().toLocaleDateString();
         const time = new Date().toLocaleTimeString();
-        const {email} = store.getState()
+        const {email,userName} = store.getState()
         const {postId, commentText} = this.state
-        console.log(postId, email, commentText, date, time)
-        axios.post('#', {
-            'postId': postId,
-            'email': email,
-            'commentText': commentText,
-            'date': date,
-            'time': date,
-        })
-            .then(res => {
-                if (res.data.statusCode === 200) {
-                    console.log('comment has been saved')
-                }
+        if(commentText !== '') {
+            axios.post('http://server.metaraw.world:3000/posts/updateTheCommentList', {
+                'postId': postId,
+                'email': email,
+                'commentText': commentText,
+                'date': date,
+                'time': time,
             })
-            .catch(err=>{
+                .then(res => {
+                    if (res.data.statusCode === 200) {
+                        // check for best way to write it.
+                        {this.componentDidMount()}
+                    }
+                })
+                .catch(err => {
+                    if (!err.response) return
+                    const errRes = err.response
+                    if (errRes.status === 404) {
+                        console.log(errRes.data)
+                        alert(errRes.data.message)
+                    }
+                })
+        }
+    }
+    handlerDeleteComment = (event) => {
+        console.log("I am here--------",event)
+        const {email,userName} = store.getState()
+        axios.delete('http://server.metaraw.world:3000/posts/deleteTheComment',{
+            // "postId": this.state.postId,
+            // "commentId": event,
+            params: {
+                "postId": this.state.postId,
+                "commentId": event,
+            }
+        })
+            .then(res=>{
+                if(res.status === 200){
+                    this.setState({
+                        commentList:this.state.commentList.filter(el => el.commentId !== event )
+                    },() => {
+                        //for TESTING
+                        // console.log(this.state.commentList)
+                    })
+                }
+
+            })
+            .catch(err => {
                 if (!err.response) return
                 const errRes = err.response
                 if (errRes.status === 404) {
-                    console.log(errRes.data)
+                    // console.log(errRes.data)
                     alert(errRes.data.message)
                 }
             })
     }
-
     render() {
         return (
             <form className="comment-li" onSubmit={this.handleSubmit}>
@@ -95,9 +120,10 @@ class Comment extends Component {
                 <br/>
                 <br/>
                 <br/>
-                {this.state.commentList.map((item) => (
-                    <CommentCell history={this.props.history} key={item.id} item={item}/>
-                ))}
+                {/*onClick={() => {this.handleClick('Others')}*/}
+                {this.state.commentList == null? null :this.state.commentList.map((item) => (
+                    <CommentCell key={item.commentId} delete={this.handlerDeleteComment.bind(this,item.commentId)} history={this.props.history} item={item}/>
+                )).reverse()}
             </form>
         );
     }

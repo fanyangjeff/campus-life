@@ -14,7 +14,7 @@ export default class SinglePost extends Component {
         console.log(this.data)
     }
 
-    handleDislike = () => {
+    handleDislike = () => {z
         console.log(this.data)
     }
 

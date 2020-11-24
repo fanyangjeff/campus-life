@@ -35,6 +35,6 @@
     transition: all 0.5s;
     margin-top: 15px;
 }
-.primaryContained-li:hover {
-    background: #9201A8;
-}
+/*.primaryContained-li:focus {*/
+/*    !*background: #016ba8;*!*/
+/*}*/
