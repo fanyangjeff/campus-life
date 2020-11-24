@@ -5,7 +5,8 @@ const initialState = {
     showPromptLogIn: false, 
     posts: [],
     currentSelectedPostType: null,
-    postsMap: {}
+    postsMap: {},
+    isLoading: false
 }
 
 
@@ -16,6 +17,7 @@ export const userReducer = (state = initialState, action) => {
             newState.email = action.data.email
             newState.userName = action.data.userName
             newState.isLoggedIn = true
+            newState.isLoading = false
             return newState
         }
 
@@ -70,6 +72,11 @@ export const userReducer = (state = initialState, action) => {
             return newState
         }
 
+
+        case 'setIsLoading': {
+            newState.isLoading = action.data.isLoading
+            return newState
+        }
         default: {
             return state
         }

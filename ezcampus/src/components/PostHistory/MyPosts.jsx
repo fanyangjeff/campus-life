@@ -5,7 +5,6 @@ import {Button} from 'react-bootstrap'
 import './Post.css'
 import store from '../../store/Store'
 
-
 export default class MyPosts extends Component {
 	state = {
 		myPosts:[]
@@ -15,53 +14,43 @@ export default class MyPosts extends Component {
         super(props)
         this.history = props.history
 		const { posts, email } = store.getState();
-		// const myPosts = posts.filter(post => post.creatorEmail === email)
-		// this.setState({myPosts})
         this.unsubscribe = store.subscribe(() => {
-            // const {currentSelectedPostType} = store.getState()
-            // if (currentSelectedPostType) {
-            //     const customizedPosts = posts.filter(post => post.postType == currentSelectedPostType)
-            //     //console.log(customizedPosts)
-            //     this.setState({myPosts: customizedPosts})
-            // }
             const myPosts = posts.filter(post => post.creatorEmail === email)
 		    this.setState({myPosts})
         })
 	}
 
     componentDidMount() {
-
-        setTimeout(() => {
-            const {isLoggedIn} = store.getState()
-            if (!isLoggedIn) {
-                console.log('not logged in')
-                const action = {type: 'setShowPromptLogIn'}
-                store.dispatch(action)
-                this.history.push('/posts')
+        let interval = setInterval(() => {
+            const {isLoading} = store.getState()
+            if (!isLoading) {
+                const {isLoggedIn} = store.getState()
+                clearInterval(interval)
+                if (!isLoggedIn) {
+                    console.log('not logged in')
+                    const action = {type: 'setShowPromptLogIn'}
+                    store.dispatch(action)
+                    this.history.push('/posts')
+                }
             }
-        }, 300)
+        }, 5)
 
-        setTimeout(() => {
-            const {posts, email, currentSelectedPostType} = store.getState()
-            const myPosts = posts.filter(post => post.creatorEmail === email)
-            this.setState({myPosts})
-            // if (currentSelectedPostType) {
-            //     const customizedPosts = posts.filter(post => post.postType == currentSelectedPostType)
-            //     //console.log(customizedPosts)
-            //     this.setState({myPosts: customizedPosts})
-            // }
-        }, 300)
+        let postInterval = setInterval(() => {
+            const {isLoading} = store.getState()
+            if (!isLoading) {
+                clearInterval(postInterval)
+                const {posts, email} = store.getState()
+                const myPosts = posts.filter(post => post.creatorEmail === email)
+                this.setState({myPosts})
+            }
+        }, 5)
+
     }
     
 
     componentWillUnmount() {
         this.unsubscribe()
     }
-
-    // handleShowAll = () => {
-    //     const action = {type: 'unsetCurrentPostType'}
-    //     store.dispatch(action)
-    // }
 
     switcherOutlinedHeader = () => {
         return (

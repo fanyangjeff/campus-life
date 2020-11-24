@@ -36,6 +36,8 @@ export default function AutoLogin(props) {
     }, [])
 
     const autoLogin = (userEmail, password) => {
+        const action = {type: 'setIsLoading', data: {isLoading: true}}
+        store.dispatch(action)
         axios.post('http://server.metaraw.world:3000/users/email_login', {
             'email': userEmail,
             'password': password
@@ -48,15 +50,22 @@ export default function AutoLogin(props) {
                     type: 'setEmailAndUserName',
                     data: {
                         email: res.data.user.email,
-                        userName: res.data.user.userName
+                        userName: res.data.user.userName,
+                        isLoading: false
                     }
                 }
-                store.dispatch(action)
-
+                store.dispatch(action) 
             }
         })
         .catch(err => {
             console.log(err)
+            const action = {
+                type: 'setIsLoading',
+                data: {
+                    isLoading: false
+                }
+            }
+            store.dispatch(action)
         })
     }
 
