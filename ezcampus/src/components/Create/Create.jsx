@@ -25,20 +25,35 @@ export default class Create extends Component {
     }
 
     componentDidMount() {
-        const {isLoggedIn} = store.getState()
-        //if the user hasn't logged in, then redirect the user to the Post component
-        if (!isLoggedIn) {
-            //after the user gets redirected to the Post component, we need to show PromptlogIn Modal
-            const action = {type: 'setShowPromptLogIn'}
-            store.dispatch(action)
-            this.history.push('/posts')
-        }
+
+        let interval = setInterval(() => {
+            const {isLoading} = store.getState()
+            if (!isLoading) {
+                clearInterval(interval)
+                const {isLoggedIn} = store.getState()
+                //if the user hasn't logged in, then redirect the user to the Post component
+                if (!isLoggedIn) {
+                    //after the user gets redirected to the Post component, we need to show PromptlogIn Modal
+                    const action = {type: 'setShowPromptLogIn'}
+                    store.dispatch(action)
+                    this.history.push('/posts')
+                }
+            }
+        }, 5)
+
 
         store.subscribe(() => {
-            const {isLoggedIn} = store.getState()
-            if (!isLoggedIn) {
-                this.history.push('/posts')
-            }
+            let interval = setInterval(() => {
+                const {isLoading} = store.getState()
+                if(!isLoading) {
+                    clearInterval(interval)
+                    const {isLoggedIn} = store.getState()
+                    if (!isLoggedIn) {
+                        this.history.push('/posts')
+                    }
+                }
+            }, 5)
+
         })
     }
 
