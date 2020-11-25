@@ -5,6 +5,7 @@ import {Card} from 'react-bootstrap';
 import {faTrashAlt} from "@fortawesome/free-solid-svg-icons";
 import store from "../../../../store/Store";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import { Link } from "react-router-dom";
 const transh = <FontAwesomeIcon icon={faTrashAlt}/>;
 // styling sheet--do not modify
 const title = {
@@ -34,12 +35,14 @@ function CommentCell(props) {
                 {/*<div style={{textAlign:"left"}}><Card.Img src={'#'}></Card.Img></div>*/}
                 <Card.Title style={title}>
                     <div>
-                        {/*<Link to={`/profile/${props.item.userName}`}>*/}
-                        {/*    <div className='"CommentCell-name"'>*/}
-                        {/*        {props.item.userName}*/}
-                        {/*    </div>*/}
-                        {/*</Link>*/}
-                        <div  className={"CommentCell-name"}>{props.item.userName}</div>
+                      
+                        
+                            <div  className={"CommentCell-name"}>
+                                <Link to={`/profile/${props.item.email}`}>
+                                    {props.item.userName}
+                                </Link>
+                            </div>
+                       
                         <div style={{float:"right"}}>
                             {props.item.time} &nbsp;&nbsp;&nbsp;&nbsp; {props.item.date}
                             {props.item.email !=email? null : <i onClick={props.delete} style={{paddingLeft:"30px",float:"right",fontSize:"13px",color:"#016ba8"}}>{transh}</i>}
