@@ -20,33 +20,52 @@ class UserProfile extends React.Component {
   }
 
   componentDidMount() {
-    const {isLoggedIn} = store.getState()
-    if (!isLoggedIn) {
-        console.log('not logged in')
-        const action = {type: 'setShowPromptLogIn'}
-        store.dispatch(action)
-        this.history.push('/posts')
-    }
+    
+    let interval = setInterval(() => {
+        const {isLoading} = store.getState()
+        if (!isLoading) {
+          clearInterval(interval)
+          const {isLoggedIn} = store.getState()
+          if (!isLoggedIn) {
+            const action = {type: 'setShowPromptLogIn'}
+            store.dispatch(action)
+            this.history.push('/posts')
+          }
+        }
+    }, 5)
 
     store.subscribe(() => {
-        const {isLoggedIn} = store.getState()
-        if (!isLoggedIn) {
-            this.history.push('/posts')
-        }
-   
+        let interval = setInterval(() => {
+          const {isLoading} = store.getState()
+          if (!isLoading) {
+            clearInterval(interval)
+            const {isLoggedIn} = store.getState()
+            if (!isLoggedIn) {
+              this.history.push('/posts')
+          }
+          }
+
+        }, 5)
     })
 
-    const {email} = store.getState()
-    axios.get("http://server.metaraw.world:3000/users/profile/get", {params: {email}})
-    .then(res =>{
-      if(res.data.statusCode === 200){
-        this.setState({
-          profile:res.data.profile
-        },() =>{
-          // console.log(this.state.profile.avatarlink)
-        })
-      }
-    })
+    let loadUserInterval = setInterval(() => {
+          const {isLoading} = store.getState()
+          if (!isLoading) {
+            clearInterval(loadUserInterval)
+            const {email} = store.getState()
+            axios.get("http://server.metaraw.world:3000/users/profile/get", {params: {email}})
+            .then(res =>{
+              if(res.data.statusCode === 200){
+                this.setState({
+                  profile:res.data.profile
+                },() =>{
+                  // console.log(this.state.profile.avatarlink)
+                })
+              }
+            })
+            
+          }
+    }, 5)
     
   }
   

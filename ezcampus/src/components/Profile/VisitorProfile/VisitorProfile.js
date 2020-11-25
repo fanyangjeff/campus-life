@@ -22,45 +22,61 @@ class VisitorProfile extends React.Component {
 
   componentDidMount() {
   
-    const {isLoggedIn} = store.getState()
-    if (!isLoggedIn) {
-        console.log('not logged in')
-        const action = {type: 'setShowPromptLogIn'}
-        store.dispatch(action)
-        this.history.push('/posts')
-    }
-
-    store.subscribe(() => {
+    let interval = setInterval(() => {
+      const {isLoading} = store.getState()
+      if (!isLoading) {
+        clearInterval(interval)
         const {isLoggedIn} = store.getState()
         if (!isLoggedIn) {
+            console.log('not logged in')
+            const action = {type: 'setShowPromptLogIn'}
+            store.dispatch(action)
             this.history.push('/posts')
         }
+      }
+    }, 5)
+
+    store.subscribe(() => {
+        let interval = setInterval(() => {
+          const {isLoading} = store.getState()
+          if (!isLoading) {
+              clearInterval(interval)
+              const {isLoggedIn} = store.getState()
+              if (!isLoggedIn) 
+                this.history.push('/posts')
+          }
+        }, 5)
     
     })
-    setTimeout(() => {
-      const userEmail = store.getState().email;
-      const email = this.props.match.params.userId;
-      if(userEmail !== email){
-        
-        axios.get("http://server.metaraw.world:3000/users/profile/get", {params: {email, userEmail}})
-        .then(res =>{
-          if(res.data.statusCode === 200){
-            this.setState({
-              profile:res.data.profile,
-            },() =>{
-              // console.log(this.state.profile)
-            })
-            //console.log(res.data.isInContacts)
-            if(!res.data.isInContacts){
-              this.setState({contactM:"Add to Contact"})
+
+    let loadProfileInterval = setInterval(() => {
+      const {isLoading} = store.getState()
+      if (!isLoading) {
+        clearInterval(loadProfileInterval)
+        const userEmail = store.getState().email
+        const email = this.props.match.params.userId
+        if(userEmail !== email){
+          
+          axios.get("http://server.metaraw.world:3000/users/profile/get", {params: {email, userEmail}})
+          .then(res =>{
+            if(res.data.statusCode === 200){
+              this.setState({
+                profile:res.data.profile,
+              },() =>{
+                // console.log(this.state.profile)
+              })
+              //console.log(res.data.isInContacts)
+              if(!res.data.isInContacts){
+                this.setState({contactM:"Add to Contact"})
+              }
+              else{
+                this.setState({contactM:"Remove Contact"})
+              }
             }
-            else{
-              this.setState({contactM:"Remove Contact"})
-            }
-          }
-        })
+          })
+        }
       }
-    }, 300)
+    }, 5)
   }
 
   handleAddOrRemoveContact = () => {
