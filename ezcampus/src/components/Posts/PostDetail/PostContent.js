@@ -12,6 +12,7 @@ class PostContent extends React.Component {
     constructor(props) {
       super(props)
       this.postId = props.history.location.pathname.slice(7)
+      this.history = props.history
       this.state = {
         data: {
           creatorName: '', 
@@ -28,17 +29,42 @@ class PostContent extends React.Component {
     }
 
     componentDidMount() {
-          console.log(this.props.history)
-          console.log(this.props.history.location)
-          axios.get('http://server.metaraw.world:3000/posts/get_a_post_detail', {params: {postId:this.postId}})
-          .then(res => {
-              const post = res.data.data
-              //console.log(post)
-              this.setState({data: post})
-          })
-          .catch(err => {
-            console.log(err)
-          })
+      let interval = setInterval(() => {
+        const {isLoading} = store.getState()
+        if (!isLoading) {
+            clearInterval(interval)
+            const {isLoggedIn} = store.getState()
+            if (!isLoggedIn) {
+                const action = {type: 'setShowPromptLogIn'}
+                store.dispatch(action)
+                this.history.replace('/posts')
+            } else {
+              axios.get('http://server.metaraw.world:3000/posts/get_a_post_detail', {params: {postId:this.postId}})
+              .then(res => {
+                  const post = res.data.data
+                  this.setState({data: post})
+              })
+              .catch(err => {
+                console.log(err)
+              })
+            }
+        } 
+    }, 5)
+
+
+      store.subscribe(() => {
+        let interval = setInterval(() => {
+          const {isLoading} = store.getState()
+          if (!isLoading) {
+              clearInterval(interval)
+              const {isLoggedIn} = store.getState()
+              if (!isLoggedIn) 
+                this.history.push('/posts')
+          }
+        }, 5)
+    
+      })
+    
     }
 
 

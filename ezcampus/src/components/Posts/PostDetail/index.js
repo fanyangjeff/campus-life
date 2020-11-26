@@ -7,23 +7,7 @@ class PostDetail extends React.Component {
       super(props)
       this.history = props.history
     }
-    componentDidMount() {
-      const {isLoggedIn} = store.getState()
-      if (!isLoggedIn) {
-          console.log('not logged in')
-          const action = {type: 'setShowPromptLogIn'}
-          store.dispatch(action)
-          this.history.push('/posts')
-      }
-  
-      store.subscribe(() => {
-          const {isLoggedIn} = store.getState()
-          if (!isLoggedIn) {
-              this.history.push('/posts')
-          }
-      
-      })
-    }
+    
     render() {
         return (
           <div>

@@ -20,20 +20,30 @@ class Comment extends Component {
     componentDidMount() {
         // axions read a data of comments
         // responds set state
-        axios.get('http://server.metaraw.world:3000/posts/fetchTheCommentList', {
-            params: {
-                postId: this.state.postId
-            }
-        })
-            .then(res => {
-                if (res.data.statusCode === 200) {
-                    console.log(res.data)
-                    this.setState({
-                        commentList: res.data.commentList,
+
+        let interval = setInterval(() => {
+            const {isLoading} = store.getState()
+            if (!isLoading) {
+                clearInterval(interval)
+                axios.get('http://server.metaraw.world:3000/posts/fetchTheCommentList', {
+                    params: {
+                        postId: this.state.postId
+                    }
+                })
+                    .then(res => {
+                        if (res.data.statusCode === 200) {
+                            console.log(res.data)
+                            this.setState({
+                                commentList: res.data.commentList,
+                            })
+                        }
                     })
-                }
-            })
+            }
+        }, 5)
+    
     }
+
+
 
     // Get the comment text
     handlerTextChange = (event) => {
