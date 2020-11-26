@@ -77,6 +77,10 @@ export default class Create extends Component {
       }
     };
 
+    cancelPost = () => {
+        this.setState({redirect:true})
+    }
+
     submitPost = () => {
 
         //check if the title or description is left empty
@@ -126,13 +130,10 @@ export default class Create extends Component {
                 }
             })
         })
-    
     }
-    
+
 
     render() {
-        
-        
         return (
             <div>
                 {this.handleRedirect()}
@@ -149,7 +150,7 @@ export default class Create extends Component {
                                onChange={this.updateTitle}/>
                     </div>
                     <div className="form-group">
-                        <label><strong>CATEGORY</strong></label>
+                        <label><strong>Category</strong></label>
                         <select className="form-control" id="postCategory" onChange={this.updateType}>
                             <option>Free or For Sale</option>
                             <option>Ride Sharing</option>
@@ -159,10 +160,6 @@ export default class Create extends Component {
                             <option>Others</option>
                         </select>
                     </div>
-                    {/*<div className="form-group">*/}
-                    {/*    <label htmlFor="exampleFormControlTextarea1">Example textarea</label>*/}
-                    {/*    <textarea className="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>*/}
-                    {/*</div>*/}
                 </form>
                 <div className='create-post-text-area'>
                 <p><strong>Description</strong></p>
@@ -192,7 +189,8 @@ export default class Create extends Component {
                 <br/>
                 <div>
                     <Button type="button" id="creat-post-cancel"
-                            className="btn btn-secondary float-right btn-lg ml-3">
+                            className="btn btn-secondary float-right btn-lg ml-3"
+                            onClick={this.cancelPost}>
                         <strong>Cancel</strong>
                     </Button>
                     <Button type="button" id="creat-post-send"
