@@ -51,6 +51,7 @@ export default function AutoLogin(props) {
                     data: {
                         email: res.data.user.email,
                         userName: res.data.user.userName,
+                        avatarlink: res.data.user.avatarlink,
                         isLoading: false
                     }
                 }

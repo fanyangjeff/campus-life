@@ -89,7 +89,8 @@ class LoginPage extends Component{
                     type: 'setEmailAndUserName',
                     data: {
                         email: res.data.user.email,
-                        userName: res.data.user.userName
+                        userName: res.data.user.userName,
+                        avatarlink: res.data.user.avatarlink
                     }
                 }
                 store.dispatch(action)

@@ -5,8 +5,8 @@ const initialState = {
     showPromptLogIn: false, 
     posts: [],
     currentSelectedPostType: null,
-    postsMap: {},
-    isLoading: false
+    isLoading: false,
+    avatarlink: ''
 }
 
 
@@ -16,6 +16,7 @@ export const userReducer = (state = initialState, action) => {
         case 'setEmailAndUserName': {
             newState.email = action.data.email
             newState.userName = action.data.userName
+            newState.avatarlink = action.data.avatarlink
             newState.isLoggedIn = true
             newState.isLoading = false
             return newState
@@ -31,9 +32,15 @@ export const userReducer = (state = initialState, action) => {
             return newState
         }
 
+        case 'updateAvatarlink': {
+            newState.avatarlink = action.data.avatarlink
+            return newState
+        }
+
         case 'unsetEmailAndUserName': {
             newState.email = ''
             newState.userName = ''
+            newState.avatarlink = ''
             newState.isLoggedIn = false
             return newState
         }
@@ -50,15 +57,12 @@ export const userReducer = (state = initialState, action) => {
 
         case 'setPosts': {
             newState.posts = action.data.posts
-            newState.postsMap = action.data.postsMap
             return newState
         }
 
         case 'addPost': {
             let newPostList = [action.data.newPost]
-            const newPost = action.data.newPost
             newState.posts = newPostList.concat(newState.posts)
-            newState.postsMap[newPost.postId] = newPost
             return newState
         }
 
@@ -77,8 +81,10 @@ export const userReducer = (state = initialState, action) => {
             newState.isLoading = action.data.isLoading
             return newState
         }
+
         default: {
             return state
         }
+
     }
 }

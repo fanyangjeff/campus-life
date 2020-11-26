@@ -30,13 +30,14 @@ class SideBar extends React.Component {
             showPromptLogIn: false,
             isEmailVerification: false,
             userName: 'Guest',
+            avatarlink:'',
             isLoggedIn: false,
             currentSelectedMenuItem: '1'
         }
 
         this.unsubscribe = store.subscribe(() => {
-            const {userName, isLoggedIn, showPromptLogIn} = store.getState()
-            this.setState({userName, isLoggedIn, showPromptLogIn}, () => {
+            const {userName, isLoggedIn, showPromptLogIn, avatarlink} = store.getState()
+            this.setState({userName, isLoggedIn, showPromptLogIn, avatarlink}, () => {
                 if (!this.state.isLoggedIn) {
                     this.setState({currentSelectedMenuItem: '1'})
                 }
@@ -110,7 +111,7 @@ class SideBar extends React.Component {
                     <div>
                         <NavLink to="/profile">
                             <img
-                                src={BigProfile ? BigProfile : null}
+                                src={this.state.avatarlink ? this.state.avatarlink : BigProfile}
                                 style={{
                                     //marginTop: "100px",
                                     width: "78px",
@@ -140,7 +141,7 @@ class SideBar extends React.Component {
                             }}
                             onClick={this.onTogglePopup}
                         >
-                            {this.state.isLoggedIn ? this.state.userName : 'Log In / Sign Up'}
+                            {this.state.isLoggedIn ? 'Log out' : 'Log in / Sign up'}
                         </Button>
                         {
                             this.state.showPopUPLogin && !this.state.isLoggedIn?
