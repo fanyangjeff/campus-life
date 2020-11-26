@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import PostCell from './PostCell'
+import MyPostCell from './MyPostCell'
 import { SwitcherOutlined } from '@ant-design/icons'
-import {Button} from 'react-bootstrap'
 import './Post.css'
 import store from '../../store/Store'
+import axios from 'axios';
 
 export default class MyPosts extends Component {
 	state = {
@@ -52,6 +52,22 @@ export default class MyPosts extends Component {
         this.unsubscribe()
     }
 
+    handleDelete = postId => {
+        axios.delete("http://server.metaraw.world:3000/posts/delete_a_post", 
+        {params: {postId}})
+        .then(res => {
+            if(res.data.statusCode === 200){
+                const myPosts = this.state.myPosts.filter(post => post.postId !== postId);
+                this.setState({myPosts})
+                const action = {
+                    type: 'deletePost', 
+                    data: {targetPostId: postId}
+                }
+                store.dispatch(action)
+            }
+        })
+    }
+
     switcherOutlinedHeader = () => {
         return (
             <div style={{marginLeft: '35px', marginTop: '20px'}}>
@@ -74,10 +90,11 @@ export default class MyPosts extends Component {
             {
             this.state.myPosts.map(
                 post => (
-                <PostCell 
+                <MyPostCell 
                     data={post}
                     key={post.postId}
                     history={this.props.history}
+                    onDelete={this.handleDelete}
                 />
                 ))
                 }

@@ -4,6 +4,7 @@ import { HomeOutlined } from '@ant-design/icons'
 import {Button} from 'react-bootstrap'
 import './Post.css'
 import store from '../../store/Store'
+import axios from 'axios';
 
 
 export default class Posts extends Component {
@@ -53,6 +54,22 @@ export default class Posts extends Component {
         })
     }
 
+    handleDelete = postId => {
+        axios.delete("http://server.metaraw.world:3000/posts/delete_a_post", 
+        {params: {postId}})
+        .then(res => {
+            if(res.data.statusCode === 200){
+                const posts = this.state.posts.filter(post => post.postId !== postId);
+                this.setState({posts})
+                const action = {
+                    type: 'setPosts', 
+                    data: {posts: this.state.posts}
+                }
+                store.dispatch(action)
+            }
+        })
+    }
+
     homeOutlinedHeader = () => {
         return (
             <div style={{marginLeft: '35px', marginTop: '20px'}}>
@@ -79,6 +96,7 @@ export default class Posts extends Component {
                     data={post}
                     key={post.postId}
                     history={this.props.history}
+                    onDelete={this.handleDelete}
                 />
                 ))
                 }
