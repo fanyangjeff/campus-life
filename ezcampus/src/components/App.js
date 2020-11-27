@@ -1,6 +1,7 @@
 import SideBar from "./Sidebar";
 import UserProfile from "./Profile/ProfilePage/UserProfile"
 import Posts from './Posts/Posts'
+import Edit from './Posts/EditPost/Edit'
 import React, { useState, useEffect } from 'react'
 import Create from "./Create/Create";
 import Friends from "./Friends/Friends"
@@ -77,6 +78,11 @@ function App() {
                         exact
                         path="/posts/create"
                         component={Create}
+                      />
+                      <Route
+                        exact
+                        path="/posts/edit"
+                        component={Edit}
                       />
                       <Route
                         exact
