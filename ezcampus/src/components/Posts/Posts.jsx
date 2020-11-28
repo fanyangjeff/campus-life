@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PostCell from './PostCell'
 import { HomeOutlined } from '@ant-design/icons'
-import {Button} from 'react-bootstrap'
+import {Button, DropdownButton, Dropdown} from 'react-bootstrap'
 import './Post.css'
 import store from '../../store/Store'
 import axios from 'axios';
@@ -11,6 +11,7 @@ import API_PREFIX from '../../API_PREFIX'
 export default class Posts extends Component {
     constructor(props) {
         super(props)
+        this.history = props.history
         this.state = {
             posts: [],
             title_name:'Home'
@@ -71,9 +72,18 @@ export default class Posts extends Component {
         })
     }
 
+    handleClick = (postType) => {
+        const action = {type: 'setSelectedPostType', data: {postType}}
+        store.dispatch(action)
+        this.history.push('/posts')
+        this.setState({
+            title_name: postType
+        })
+    }
+
     homeOutlinedHeader = () => {
         return (
-            <div style={{marginLeft: '35px', marginTop: '20px'}}>
+            <div style={{marginLeft: '35px', marginTop: '20px', marginBottom:'10px'}}>
                 <HomeOutlined style={{
                     fontSize:40,
                     float: "left"}}/>
@@ -81,7 +91,36 @@ export default class Posts extends Component {
                     {this.state.title_name}
                 </div>
                 <div style={{float: 'right', marginRight: '50px'}}>
-                        <Button variant='secondary' onClick={this.handleShowAll}>Show All</Button>
+                        {/* <Button variant='secondary' onClick={this.handleShowAll}>Show All</Button> */}
+                    <DropdownButton variant="secondary" 
+                    id={`dropdown-button-drop-${'left'}`} 
+                    drop={'left'} title={'Category'}>
+                    <Dropdown.Item eventKey="1"
+                        onClick={this.handleShowAll}>
+                            Show All
+                            </Dropdown.Item>
+                    <Dropdown.Item 
+                    eventKey="2" 
+                    onClick={() => {this.handleClick('Free or For Sale')}}>
+                        Free or For Sale
+                        </Dropdown.Item>
+                    <Dropdown.Item eventKey="3"
+                    onClick={() => {this.handleClick('Ride Sharing')}}>
+                        Ride Sharing
+                        </Dropdown.Item>
+                    <Dropdown.Item eventKey="3"
+                    onClick={() => {this.handleClick('Cutie Pets')}}>
+                        Cutie Pets</Dropdown.Item>
+                    <Dropdown.Item eventKey="3"
+                    onClick={() => {this.handleClick('Housing')}}>
+                        Housing</Dropdown.Item>
+                    <Dropdown.Item eventKey="3" 
+                    onClick={() => {this.handleClick('Entertainment')}}>
+                        Entertainment</Dropdown.Item>
+                    <Dropdown.Item eventKey="3"
+                    onClick={() => {this.handleClick('Others')}}>
+                        Others</Dropdown.Item>
+                    </DropdownButton>
                 </div>
             </div>
         )

@@ -1,8 +1,3 @@
-.post-history-header {
-  width: 100%;
-  height: 10vh;
-}
-
 .post-page-body-container {
   width: 100%;
   height: 10vh;
@@ -13,53 +8,59 @@
 .single-post-container {
   width: 100%;
   margin: 0 auto;
-  border-radius: 20px;
+  border-radius: 10px;
   display: inline-block;
-  height: 11rem;
+  height: 13rem;
   background-color: white;
   margin-bottom: 25px;
 }
 
 .single-post-wrapper {
-  padding-left: 40px;
+  padding-left: 20px;
   padding-right: 20px;
-
 }
 
 .single-post-header {
+  /*border: 1px red solid;*/
   font-weight: bold;
   display: inline-block !important;
-  margin-left: 0px;
+  margin-left: 15px;
   margin-top: 10px;
-  /*margin-right: 10px;*/
-  width: 99%;
+  width: 95%;
 }
 
 .single-post-creator {
+  /*border: 1px red solid;*/
+  margin-top: 5px;
   display: inline;
   left: 50px;
   font-size: 20px;
   color: rgb(84, 88, 113);
   font-weight: bold !important;
+  color: black;
   font-family: "BasicSans";
 }
 
 .single-post-type {
+  /*border: 1px chartreuse solid;*/
+  color: black;
   margin-left: 40px;
-  padding-top: 5px;
+  padding-top: 18px;
   left: 30px;
-  padding-top: 3px;
-  color: rgb(84, 88, 113);
+  padding-top: 10px;
+  /*color: rgb(84, 88, 113);*/
   font-size: 14px;
   font-family: "BasicSans";
 }
 
 .single-post-date {
-  padding-top: 0px;
+  /*border: 1px blue solid;*/
+  padding-top: 10px;
   float: right;
   font-weight: 300 !important;
   font-size: 12 !important;
-  color: rgb(84, 88, 113);
+  /*color: rgb(84, 88, 113);*/
+  color: black;
   font-family: BasicSans;
 }
 
@@ -68,7 +69,10 @@
   font-weight: 500;
   font-size: 20px;
   font-family: "BasicSans";
-  color: rgb(84, 88, 113);
+  color: black;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  /*color: rgb(84, 88, 113);*/
 }
 
 .single-post-description-box {

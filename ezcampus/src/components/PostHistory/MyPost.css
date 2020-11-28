@@ -13,9 +13,9 @@
 .single-post-container {
   width: 100%;
   margin: 0 auto;
-  border-radius: 20px;
+  border-radius: 10px;
   display: inline-block;
-  height: 11rem;
+  height: 13rem;
   background-color: white;
   margin-bottom: 25px;
 }

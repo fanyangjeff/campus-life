@@ -7,6 +7,7 @@ import store from '../../store/Store'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faTrashAlt} from '@fortawesome/free-solid-svg-icons';
 import {Modal, Space} from 'antd';
+import BigProfile from "../Sidebar/icons/BigProfile.png"
 
 const deleteIcon = <FontAwesomeIcon icon={faTrashAlt}/>;
 
@@ -49,19 +50,37 @@ export default class PostCell extends Component {
     }
 
     render() {
-        const {creatorName, creatorEmail, title, description, views, likes, date, postId, postType} = this.data
+        const {creatorName, creatorEmail, title, description, views, likes, date, postId, postType, avatarlink} = this.data
         const { email } = store.getState()
         return (
             <div className='single-post-container'>
                 <div className='single-post-wrapper'>
                 <div className='single-post-header'>
                 <div style={{display: 'inline-block'}}>
+                    
                     <div style={{display: 'flex'}}>
-                    <Link to={`/profile/${creatorEmail}`}>
+                        <div style={{display:'inline-flex'}}>
+                        <Link to={`/profile/${creatorEmail}`}>
+                        <div style={{display:'inline-block'}}>
+                        <img
+                        src={avatarlink? avatarlink: BigProfile}
+                        style={{
+                             //marginTop: "100px",
+                             width: "40px",
+                             height: "40px",
+                            borderRadius: "39px",
+                            marginRight:"20px"
+                            }}
+                        alt="default profile pic"
+                        />
+                        </div>
+                        
                         <div className='single-post-creator'>
                             {creatorName? creatorName: 'unknown'}
                         </div>
                     </Link>
+                        </div>
+                       
                         <div className='single-post-type'>
                             {postType}  
                         </div>

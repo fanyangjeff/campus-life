@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import MyPostCell from './MyPostCell'
 import { SwitcherOutlined } from '@ant-design/icons'
-import './Post.css'
+import '../Posts/Post.css'
 import store from '../../store/Store'
 import axios from 'axios';
 import API_PREFIX from '../../API_PREFIX'
