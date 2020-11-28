@@ -3,12 +3,15 @@ import './Comment.css'
 import axios from 'axios'
 import store from "../../../../store/Store";
 import CommentCell from "./CommentCell";
+import Notifications from "react-notify-toast";
+import {Card} from "react-bootstrap";
+import {notify} from "react-notify-toast/bin/notify";
 
 class Comment extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            commentList:[],
+            commentList: [],
             commentText: '',
             postId: this.props.history.location.pathname.slice(7),
         }
@@ -59,9 +62,9 @@ class Comment extends Component {
         event.preventDefault()
         const date = new Date().toLocaleDateString();
         const time = new Date().toLocaleTimeString();
-        const {email,userName} = store.getState()
+        const {email, userName} = store.getState()
         const {postId, commentText} = this.state
-        if(commentText !== '') {
+        if (commentText !== '') {
             axios.post('http://server.metaraw.world:3000/posts/updateTheCommentList', {
                 'postId': postId,
                 'email': email,
@@ -71,8 +74,12 @@ class Comment extends Component {
             })
                 .then(res => {
                     if (res.data.statusCode === 200) {
-                        // check for best way to write it.
-                        {this.componentDidMount()}
+                        notify.show('Add your comment Successfully')
+                        this.setState({
+                            commentText:'',
+                        }, ()=>{
+                            this.componentDidMount()
+                        })
                     }
                 })
                 .catch(err => {
@@ -86,9 +93,8 @@ class Comment extends Component {
         }
     }
     handlerDeleteComment = (event) => {
-        console.log("I am here--------",event)
-        const {email,userName} = store.getState()
-        axios.delete('http://server.metaraw.world:3000/posts/deleteTheComment',{
+        const {email, userName} = store.getState()
+        axios.delete('http://server.metaraw.world:3000/posts/deleteTheComment', {
             // "postId": this.state.postId,
             // "commentId": event,
             params: {
@@ -96,11 +102,12 @@ class Comment extends Component {
                 "commentId": event,
             }
         })
-            .then(res=>{
-                if(res.status === 200){
+            .then(res => {
+                if (res.status === 200) {
+                    notify.show('Delete Successfully')
                     this.setState({
-                        commentList:this.state.commentList.filter(el => el.commentId !== event )
-                    },() => {
+                        commentList: this.state.commentList.filter(el => el.commentId !== event)
+                    }, () => {
                         //for TESTING
                         // console.log(this.state.commentList)
                     })
@@ -116,10 +123,29 @@ class Comment extends Component {
                 }
             })
     }
+    handlerUpdateComment = (commentText,commentId) =>{
+        console.log("what",commentText,commentId)
+        notify.show('Edit Successfully')
+        // http://server.metaraw.world:3000/posts/updateTheComment
+        axios.post('http://server.metaraw.world:3000/posts/updateTheComment',{
+            'postId':this.state.postId,
+            'commentId':commentId,
+            'commentText':commentText,
+        })
+            .then(res=>{
+                if(res.status === 200){
+                    this.componentDidMount()
+                    notify.show("Update successful")
+                }
+            })
+    }
+
     render() {
         return (
             <form className="comment-li" onSubmit={this.handleSubmit}>
-                <textarea type={"text"} className={"box-li"} placeholder={"Write a comment"} onChange={this.handlerTextChange}></textarea>
+                <Notifications/>
+                <textarea type={"text"} value={this.state.commentText} className={"box-li"} placeholder={"Write a comment"}
+                          onChange={this.handlerTextChange}></textarea>
                 <button
                     className={"primaryContained-li"}
                     type="submit"
@@ -130,9 +156,10 @@ class Comment extends Component {
                 <br/>
                 <br/>
                 <br/>
-                {/*onClick={() => {this.handleClick('Others')}*/}
-                {this.state.commentList == null? null :this.state.commentList.map((item) => (
-                    <CommentCell key={item.commentId} delete={this.handlerDeleteComment.bind(this,item.commentId)} history={this.props.history} item={item}/>
+                {this.state.commentList == null ? null : this.state.commentList.map((item) => (
+                    <CommentCell key={item.commentId} delete={this.handlerDeleteComment.bind(this, item.commentId)}
+                                 updateComment={this.handlerUpdateComment.bind(this)}
+                                 history={this.props.history} item={item}/>
                 )).reverse()}
             </form>
         );
