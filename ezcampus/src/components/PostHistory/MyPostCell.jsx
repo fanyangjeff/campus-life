@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import './MyPost.css'
+import '../Posts/Post.css'
 import {Button} from 'react-bootstrap'
 import ReactHtmlParser from 'react-html-parser'
 import { Link } from "react-router-dom";
@@ -50,7 +50,7 @@ export default class MyPostCell extends Component {
 
     render() {
         const {creatorName, creatorEmail, title, description, views, likes, date, postId, postType} = this.data
-
+        const { avatarlink } = store.getState()
         return (
             <div className='single-post-container'>
                 <div className='single-post-wrapper'>
@@ -60,11 +60,11 @@ export default class MyPostCell extends Component {
                         <div>
                             
                         <img
-                        src={BigProfile? BigProfile: null}
+                        src={avatarlink? avatarlink: BigProfile}
                         style={{
                              //marginTop: "100px",
-                             width: "50px",
-                             height: "50px",
+                             width: "40px",
+                             height: "40px",
                             borderRadius: "39px",
                             marginRight:"20px"
                             }}

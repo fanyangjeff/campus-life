@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import MyPostCell from './MyPostCell'
 import { SwitcherOutlined } from '@ant-design/icons'
-import './Post.css'
+import '../Posts/Post.css'
 import store from '../../store/Store'
 import axios from 'axios';
+import API_PREFIX from '../../API_PREFIX'
 
 export default class MyPosts extends Component {
 	state = {
@@ -53,7 +54,7 @@ export default class MyPosts extends Component {
     }
 
     handleDelete = postId => {
-        axios.delete("https://server.metaraw.world:3000/posts/delete_a_post", 
+        axios.delete(`${API_PREFIX}/posts/delete_a_post`, 
         {params: {postId}})
         .then(res => {
             if(res.data.statusCode === 200){
