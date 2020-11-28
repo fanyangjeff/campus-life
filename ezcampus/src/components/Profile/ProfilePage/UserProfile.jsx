@@ -76,87 +76,86 @@ class UserProfile extends React.Component {
   };
   render() {
     return (
-    <div>
-      {this.renderRedirect()}
-      <Card
-       style ={{width:"60%"}}
-        headStyle={{ background: "#DEE0EB" }}
-        extra={
-          <Button
-            style={styles.editButton}
-            onClick={
-             
-              (this.setRedirect = () => {
-                this.setState({
-                  redirect: true
-                });
-              })
-            }
-          >
-            <EditOutlined />
-          </Button>
-        }
-      >
-        <div style={styles.avatar}>
-        {!this.state.profile.avatarlink ?
-            <AvatarImage
-              src={BigProfile}
+      <FullPageContainer>
+        <ProfileContainer>
+            {this.renderRedirect()}
+            <Card
+            style ={{width:"60%"}}
+              headStyle={{ background: "#DEE0EB" }}
+              extra={
+                <Button
+                  style={styles.editButton}
+                  onClick={
+                  
+                    (this.setRedirect = () => {
+                      this.setState({
+                        redirect: true
+                      });
+                    })
+                  }
+                >
+                  <EditOutlined />
+                </Button>
+              }
             >
-            </AvatarImage>  :
-            <AvatarImage
-            src={this.state.profile.avatarlink}
-            ></AvatarImage>
-        }
-        </div>
-        <div style={styles.nameText}>
-          <Name>{this.state.profile.userName}</Name>
-        </div>
-        {this.state.profile.city || this.state.profile.state?
-           <div style={styles.positionText}>
-            <Name>{this.state.profile.city}</Name>
-            <Name>{this.state.profile.state}</Name>
-          </div> : null
-        }
-      <div>
-          <TitleField>
-            <img
-              src={contactIcon}
-              alt="contact"
-              style={{ width: 23, height: 23, marginRight: 10 }}
-            ></img>
-            About Me
-          </TitleField>
-          <div style={styles.fieldText}>
-              {this.state.profile.aboutMe}
-          </div>
-      </div>
-      <div>
-          <TitleField>
-            <img
-              src={contactIcon}
-              alt="contact"
-              style={{ width: 23, height: 23, marginRight: 10 }}
-            ></img>
-            Contact Info
-          </TitleField>
-          <div style={styles.fieldText}>
-            Contact Email:
-            <div style={styles.text}>
-              {this.state.profile.contactEmail}
+              <div style={styles.avatar}>
+              {!this.state.profile.avatarlink ?
+                  <AvatarImage
+                    src={BigProfile}
+                  >
+                  </AvatarImage>  :
+                  <AvatarImage
+                  src={this.state.profile.avatarlink}
+                  ></AvatarImage>
+              }
+              </div>
+              <div style={styles.nameText}>
+                <Name>{this.state.profile.userName}</Name>
+              </div>
+              {this.state.profile.city || this.state.profile.state?
+                <div style={styles.positionText}>
+                  <Name>{this.state.profile.city}</Name>
+                  <Name>{this.state.profile.state}</Name>
+                </div> : null
+              }
+            <div>
+                <TitleField>
+                  <img
+                    src={contactIcon}
+                    alt="contact"
+                    style={{ width: 23, height: 23, marginRight: 10 }}
+                  ></img>
+                  About Me
+                </TitleField>
+                <div style={styles.fieldText}>
+                    {this.state.profile.aboutMe}
+                </div>
             </div>
-          </div>
-          <div style={styles.fieldText}>
-            Phone:
-            <div style={styles.text}>
-               {this.state.profile.phone}
-            </div>
-          </div>
-        </div>
-      
-      </Card>
-     
-        
-    </div>
+            <div>
+                <TitleField>
+                  <img
+                    src={contactIcon}
+                    alt="contact"
+                    style={{ width: 23, height: 23, marginRight: 10 }}
+                  ></img>
+                  Contact Info
+                </TitleField>
+                <div style={styles.fieldText}>
+                  Contact Email:
+                  <div style={styles.text}>
+                    {this.state.profile.contactEmail}
+                  </div>
+                </div>
+                <div style={styles.fieldText}>
+                  Phone:
+                  <div style={styles.text}>
+                    {this.state.profile.phone}
+                  </div>
+                </div>
+              </div>
+            </Card>
+        </ProfileContainer>
+      </FullPageContainer>
     )
   }
 }
@@ -186,6 +185,17 @@ const TitleField = styled.div`
   opacity: 1;
   word-break: break-word;
 `;
+const ProfileContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: start;
+  justify-content: space-around;
+  height: 100vh;
+`;
+const FullPageContainer = styled.div`
+    background-color: #f5f6fa;
+    width: 100%;
+`;
 
 const styles = {
   avatar: {
@@ -203,6 +213,18 @@ const styles = {
     color: "#666774", 
     marginTop: "5px", 
     fontSize:"20px"
+  },
+  editButton: {
+    cursor: "pointer",
+    textAlign: "center",
+    color: "#ffffff",
+    fontSize: "20px",
+    backgroundColor: "#545871",
+    borderRadius: "3px",
+    height: "36px",
+    width: "36px",
+    border: "0px",
+    padding: "0px"
   },
   nameText: {
     fontFamily: "Ubuntu",
