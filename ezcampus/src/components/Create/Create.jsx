@@ -16,7 +16,6 @@ import API_PREFIX from '../../API_PREFIX'
 import FormData from 'form-data'
 import { Redirect } from "react-router-dom";
 
-
 export default class Create extends Component {
     constructor(props) {
         super(props)
