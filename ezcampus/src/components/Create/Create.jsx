@@ -12,6 +12,7 @@ import './CreatePost.css';
 import uuid from 'react-uuid';
 import store from '../../store/Store'
 import axios from 'axios'
+import API_PREFIX from '../../API_PREFIX'
 import FormData from 'form-data'
 import { Redirect } from "react-router-dom";
 
@@ -116,7 +117,7 @@ export default class Create extends Component {
         //since setState is aysnc, the aixos API call need to be placed in its callback function
         
         this.setState({creatorName: userName, creatorEmail:email}, () => {
-            axios.post('http://server.metaraw.world:3000/posts/create_a_post', {
+            axios.post(`${API_PREFIX}/posts/create_a_post`, {
                 ...this.state,
                 ...otherInfo
             })

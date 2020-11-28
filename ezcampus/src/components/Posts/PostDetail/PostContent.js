@@ -9,7 +9,7 @@ import axios from 'axios';
 import { Link } from "react-router-dom";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
-
+import API_PREFIX from '../../../API_PREFIX'
 const editIcon = <FontAwesomeIcon icon={faEdit}/>;
 
 class PostContent extends React.Component {
@@ -44,7 +44,7 @@ class PostContent extends React.Component {
                 store.dispatch(action)
                 this.history.replace('/posts')
             } else {
-              axios.get('http://server.metaraw.world:3000/posts/get_a_post_detail', {params: {postId:this.postId}})
+              axios.get(`${API_PREFIX}/posts/get_a_post_detail`, {params: {postId:this.postId}})
               .then(res => {
                   const post = res.data.data
                   this.setState({data: post})

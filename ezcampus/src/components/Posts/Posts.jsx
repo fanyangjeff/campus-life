@@ -5,6 +5,7 @@ import {Button} from 'react-bootstrap'
 import './Post.css'
 import store from '../../store/Store'
 import axios from 'axios';
+import API_PREFIX from '../../API_PREFIX'
 
 
 export default class Posts extends Component {
@@ -55,7 +56,7 @@ export default class Posts extends Component {
     }
 
     handleDelete = postId => {
-        axios.delete("http://server.metaraw.world:3000/posts/delete_a_post", 
+        axios.delete(`${API_PREFIX}/posts/delete_a_post`, 
         {params: {postId}})
         .then(res => {
             if(res.data.statusCode === 200){

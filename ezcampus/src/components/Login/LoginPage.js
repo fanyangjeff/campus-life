@@ -5,6 +5,7 @@ import store from '../../store/Store'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled, { keyframes } from "styled-components";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
+import API_PREFIX from '../../API_PREFIX'
 const eye = <FontAwesomeIcon icon={faEye} />;
 
 class LoginPage extends Component{
@@ -77,7 +78,7 @@ class LoginPage extends Component{
     handleLogin= (event) =>{
         event.preventDefault();
         const {email,password} = this.state
-        axios.post('https://server.metaraw.world/users/email_login', {
+        axios.post(`${API_PREFIX}/users/email_login`, {
                 'email': email,
                 'password': password
             
@@ -126,7 +127,7 @@ class LoginPage extends Component{
     handleSignUp= (event) =>{
         event.preventDefault();
         const {email, username,password} = this.state
-        axios.post('https://server.metaraw.world/users/email_register', {
+        axios.post(`${API_PREFIX}/users/email_register`, {
             'email': email,
             'userName': username, 
             'password': password
@@ -141,7 +142,7 @@ class LoginPage extends Component{
                     }
                 }
                 store.dispatch(action)
-                axios.post('https://server.metaraw.world/users/profile/save', {
+                axios.post(`${API_PREFIX}/users/profile/save`, {
                     'loginEmail': email,
                     'userName': username, 
                     "aboutMe": "",

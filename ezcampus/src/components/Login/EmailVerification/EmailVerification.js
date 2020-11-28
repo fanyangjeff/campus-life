@@ -7,6 +7,7 @@ import Welcomeback from "./Welcomeback";
 import {Form} from 'react-bootstrap'
 import {Button} from 'react-bootstrap'
 import axios from 'axios'
+import API_PREFIX from '../../../API_PREFIX'
 
 class EmailVerification extends Component {
     constructor(props) {
@@ -38,7 +39,7 @@ class EmailVerification extends Component {
                 notify.show("The password does not match, Please, re-enter!")
             } else {
                 console.log("HERE:", codeEmail, Password, RetypePassword)
-                axios.post("https://server.metaraw.world/users/forget_password/reset_password", {
+                axios.post(`${API_PREFIX}/users/forget_password/reset_password`, {
                     "codeEmail":codeEmail,
                     "password":Password,
                     }
@@ -79,7 +80,7 @@ class EmailVerification extends Component {
                 console.log("Here is EnterCode: ", codeEmail, code)
                 let myInt = parseInt(code);
                 console.log(typeof (myInt), myInt, codeEmail)
-                axios.get("https://server.metaraw.world/users/forget_password/verify", {params: {code, codeEmail}})
+                axios.get(`${API_PREFIX}/users/forget_password/verify`, {params: {code, codeEmail}})
                     .then(res => {
                         if (res.data.statusCode === 200) {
                             notify.show('Chang your password')
@@ -111,7 +112,7 @@ class EmailVerification extends Component {
                         }
                     })
             } else {
-                axios.get("https://server.metaraw.world/users/forget_password/send_email", {params: {email}})
+                axios.get(`${API_PREFIX}/users/forget_password/send_email`, {params: {email}})
                     .then(res => {
                         if (res.data.statusCode === 200) {
                             this.setState({

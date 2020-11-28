@@ -7,7 +7,7 @@ import contactIcon from "../icons/group.png";
 import { EditOutlined} from "@ant-design/icons";
 import { Redirect } from "react-router-dom";
 import store from '../../../store/Store';
-
+import API_PREFIX from '../../../API_PREFIX'
 
 class UserProfile extends React.Component {
   constructor(props) {
@@ -53,7 +53,7 @@ class UserProfile extends React.Component {
           if (!isLoading) {
             clearInterval(loadUserInterval)
             const {email} = store.getState()
-            axios.get("http://server.metaraw.world:3000/users/profile/get", {params: {email}})
+            axios.get(`${API_PREFIX}/users/profile/get`, {params: {email}})
             .then(res =>{
               if(res.data.statusCode === 200){
                 this.setState({

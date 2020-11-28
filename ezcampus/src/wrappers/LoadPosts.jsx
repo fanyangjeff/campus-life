@@ -1,10 +1,11 @@
 import React, {useEffect} from 'react'
 import store from '../store/Store'
 import axios from 'axios'
+import API_PREFIX from '../API_PREFIX'
 export default function LoadPosts({children}) {
 
     useEffect(() => {
-        axios.get('http://server.metaraw.world:3000/posts/get_all_posts')
+        axios.get(`${API_PREFIX}/posts/get_all_posts`)
         .then(res => {
             let postsMap = {}
             const posts = res.data.data

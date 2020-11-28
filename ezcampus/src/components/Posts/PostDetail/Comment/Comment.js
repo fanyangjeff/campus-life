@@ -6,7 +6,7 @@ import CommentCell from "./CommentCell";
 import Notifications from "react-notify-toast";
 import {Card} from "react-bootstrap";
 import {notify} from "react-notify-toast/bin/notify";
-
+import API_PREFIX from '../../../../API_PREFIX'
 class Comment extends Component {
     constructor(props) {
         super(props);
@@ -28,7 +28,7 @@ class Comment extends Component {
             const {isLoading} = store.getState()
             if (!isLoading) {
                 clearInterval(interval)
-                axios.get('http://server.metaraw.world:3000/posts/fetchTheCommentList', {
+                axios.get(`${API_PREFIX}/posts/fetchTheCommentList`, {
                     params: {
                         postId: this.state.postId
                     }
@@ -64,8 +64,8 @@ class Comment extends Component {
         const time = new Date().toLocaleTimeString();
         const {email, userName} = store.getState()
         const {postId, commentText} = this.state
-        if (commentText !== '') {
-            axios.post('https://server.metaraw.world/posts/updateTheCommentList', {
+        if(commentText !== '') {
+            axios.post(`${API_PREFIX}/posts/updateTheCommentList`, {
                 'postId': postId,
                 'email': email,
                 'commentText': commentText,
@@ -93,8 +93,9 @@ class Comment extends Component {
         }
     }
     handlerDeleteComment = (event) => {
-        const {email, userName} = store.getState()
-        axios.delete('https://server.metaraw.world/posts/deleteTheComment', {
+        console.log("I am here--------",event)
+        const {email,userName} = store.getState()
+        axios.delete(`${API_PREFIX}/posts/deleteTheComment`,{
             // "postId": this.state.postId,
             // "commentId": event,
             params: {

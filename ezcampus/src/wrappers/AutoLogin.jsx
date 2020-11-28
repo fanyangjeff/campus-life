@@ -2,7 +2,7 @@ import React, {useEffect} from 'react'
 import store from '../store/Store'
 import axios from 'axios'
 import {useHistory} from 'react-router-dom'
-
+import API_PREFIX from '../API_PREFIX'
 
 export default function AutoLogin(props) {
     const children = props.children
@@ -38,7 +38,7 @@ export default function AutoLogin(props) {
     const autoLogin = (userEmail, password) => {
         const action = {type: 'setIsLoading', data: {isLoading: true}}
         store.dispatch(action)
-        axios.post('http://server.metaraw.world:3000/users/email_login', {
+        axios.post(`${API_PREFIX}/users/email_login`, {
             'email': userEmail,
             'password': password
             
