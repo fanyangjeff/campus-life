@@ -65,7 +65,7 @@ class Comment extends Component {
         const {email, userName} = store.getState()
         const {postId, commentText} = this.state
         if (commentText !== '') {
-            axios.post('http://server.metaraw.world:3000/posts/updateTheCommentList', {
+            axios.post('https://server.metaraw.world/posts/updateTheCommentList', {
                 'postId': postId,
                 'email': email,
                 'commentText': commentText,
@@ -94,7 +94,7 @@ class Comment extends Component {
     }
     handlerDeleteComment = (event) => {
         const {email, userName} = store.getState()
-        axios.delete('http://server.metaraw.world:3000/posts/deleteTheComment', {
+        axios.delete('https://server.metaraw.world/posts/deleteTheComment', {
             // "postId": this.state.postId,
             // "commentId": event,
             params: {
@@ -127,7 +127,7 @@ class Comment extends Component {
         console.log("what",commentText,commentId)
         notify.show('Edit Successfully')
         // http://server.metaraw.world:3000/posts/updateTheComment
-        axios.post('http://server.metaraw.world:3000/posts/updateTheComment',{
+        axios.post('https://server.metaraw.world/posts/updateTheComment',{
             'postId':this.state.postId,
             'commentId':commentId,
             'commentText':commentText,

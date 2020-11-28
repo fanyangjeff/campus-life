@@ -1,3 +1,9 @@
+*{
+  font-weight: 500;
+  font-style: normal;
+  font-stretch: normal;
+  letter-spacing: normal;
+}
 .post-history-header {
   width: 100%;
   height: 10vh;
@@ -26,6 +32,7 @@
 }
 
 .single-post-header {
+  border: 1px red solid;
   font-weight: bold;
   display: inline-block !important;
   margin-left: 15px;
@@ -34,42 +41,51 @@
 }
 
 .single-post-creator {
+  /*border: 1px red solid;*/
   display: inline;
   left: 50px;
   font-size: 20px;
   color: rgb(84, 88, 113);
   font-weight: bold !important;
+  color: black;
   font-family: "BasicSans";
 }
 
 .single-post-type {
+  border: 1px chartreuse solid;
+  color: black;
   margin-left: 40px;
   padding-top: 18px;
   left: 30px;
   padding-top: 10px;
-  color: rgb(84, 88, 113);
+  /*color: rgb(84, 88, 113);*/
   font-size: 14px;
   font-family: "BasicSans";
 }
 
 .single-post-date {
+  border: 1px blue solid;
   padding-top: 10px;
   float: right;
   font-weight: 300 !important;
   font-size: 12 !important;
-  color: rgb(84, 88, 113);
+  /*color: rgb(84, 88, 113);*/
+  color:black;
   font-family: BasicSans;
 }
 
 .single-post-title {
+  border: 1px chartreuse solid;
   padding-left: 20px;
   font-weight: 500;
   font-size: 20px;
   font-family: "BasicSans";
-  color: rgb(84, 88, 113);
+  color: black;
+  /*color: rgb(84, 88, 113);*/
 }
 
 .single-post-description-box {
+  border: 1px darkblue solid;
   height: 65px;
 }
 

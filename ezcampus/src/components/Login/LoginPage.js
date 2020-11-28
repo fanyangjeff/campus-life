@@ -77,7 +77,7 @@ class LoginPage extends Component{
     handleLogin= (event) =>{
         event.preventDefault();
         const {email,password} = this.state
-        axios.post('http://server.metaraw.world:3000/users/email_login', {
+        axios.post('https://server.metaraw.world/users/email_login', {
                 'email': email,
                 'password': password
             
@@ -126,7 +126,7 @@ class LoginPage extends Component{
     handleSignUp= (event) =>{
         event.preventDefault();
         const {email, username,password} = this.state
-        axios.post('http://server.metaraw.world:3000/users/email_register', {
+        axios.post('https://server.metaraw.world/users/email_register', {
             'email': email,
             'userName': username, 
             'password': password
@@ -141,7 +141,7 @@ class LoginPage extends Component{
                     }
                 }
                 store.dispatch(action)
-                axios.post('http://server.metaraw.world:3000/users/profile/save', {
+                axios.post('https://server.metaraw.world/users/profile/save', {
                     'loginEmail': email,
                     'userName': username, 
                     "aboutMe": "",

@@ -5,7 +5,6 @@ import {Card, FormControl, InputGroup, Button, Form} from 'react-bootstrap';
 import {faTrashAlt} from "@fortawesome/free-solid-svg-icons";
 import {faEdit} from "@fortawesome/free-solid-svg-icons";
 import store from "../../../../store/Store";
-import Notifications, {notify} from 'react-notify-toast';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {Link} from "react-router-dom";
 
