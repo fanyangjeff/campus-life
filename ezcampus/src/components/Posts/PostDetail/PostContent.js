@@ -32,6 +32,7 @@ class PostContent extends React.Component {
           date: '', 
           postId: '', 
           postType: '',
+          avatarlink: ''
         },
         liked: false,
         likeNumber: 0,
@@ -135,7 +136,7 @@ class PostContent extends React.Component {
               <Row align="middle">
                 <Link to={`/profile/${this.state.data.creatorEmail}`}>
                   <Col flex="0 1" style={{ margin: "5px" }}>
-                    <Avatar size={50} src={BigProfile} alt="" />
+                    <Avatar size={50} src={this.state.data.avatarlink? this.state.data.avatarlink: BigProfile} alt="" />
                   </Col>
                  </Link>
                  <Link to={`/profile/${this.state.data.creatorEmail}`}>
