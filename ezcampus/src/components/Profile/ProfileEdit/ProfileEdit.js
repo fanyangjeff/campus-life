@@ -165,7 +165,7 @@ class ProfileEdit extends React.Component {
           loginEmail:  email, 
       }
     }))
-    axios.get("http://server.metaraw.world:3000/users/profile/get", {params: {email}})
+    axios.get("https://server.metaraw.world:3000/users/profile/get", {params: {email}})
     .then(res =>{
       if(res.data.statusCode === 200){
         this.setState({
@@ -196,7 +196,7 @@ class ProfileEdit extends React.Component {
       );
       return;
     }
-    axios.post('http://server.metaraw.world:3000/users/profile/save', {
+    axios.post('https://server.metaraw.world:3000/users/profile/save', {
       ...this.state.tempUser})
     .then(res => {
       if (res.data.statusCode === 200) {

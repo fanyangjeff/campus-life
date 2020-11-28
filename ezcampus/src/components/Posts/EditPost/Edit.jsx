@@ -132,7 +132,7 @@ export default class Edit extends Component {
         //since setState is aysnc, the aixos API call need to be placed in its callback function
         
         this.setState({creatorName: userName, creatorEmail:email}, () => {
-            axios.post('http://server.metaraw.world:3000/posts/update_a_post', {
+            axios.post('https://server.metaraw.world:3000/posts/update_a_post', {
                 ...info
             })
             .then(res => {

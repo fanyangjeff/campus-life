@@ -38,7 +38,7 @@ export default function AutoLogin(props) {
     const autoLogin = (userEmail, password) => {
         const action = {type: 'setIsLoading', data: {isLoading: true}}
         store.dispatch(action)
-        axios.post('http://server.metaraw.world:3000/users/email_login', {
+        axios.post('https://server.metaraw.world:3000/users/email_login', {
             'email': userEmail,
             'password': password
             

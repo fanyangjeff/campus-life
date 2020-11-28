@@ -53,7 +53,7 @@ export default class MyPosts extends Component {
     }
 
     handleDelete = postId => {
-        axios.delete("http://server.metaraw.world:3000/posts/delete_a_post", 
+        axios.delete("https://server.metaraw.world:3000/posts/delete_a_post", 
         {params: {postId}})
         .then(res => {
             if(res.data.statusCode === 200){

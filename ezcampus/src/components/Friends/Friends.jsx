@@ -77,7 +77,7 @@ export default class Friends extends Component {
                     this.history.replace('/posts')
                 } else {
                     const email = store.getState().email
-                    axios.get("http://server.metaraw.world:3000/users/contact/get_contactList", {params: {email}})
+                    axios.get("https://server.metaraw.world:3000/users/contact/get_contactList", {params: {email}})
                     .then(res => {
                         //console.log("getting data")
                         if(res.data.statusCode === 200){
@@ -96,7 +96,7 @@ export default class Friends extends Component {
 
     handleDelete = friendID => {
         const myEmail = store.getState().email
-        axios.delete("http://server.metaraw.world:3000/users/contact/delete",{
+        axios.delete("https://server.metaraw.world:3000/users/contact/delete",{
             params: {
                 myEmail: this.myEmail,
                 userEmail: friendID

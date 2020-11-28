@@ -57,7 +57,7 @@ class VisitorProfile extends React.Component {
         const email = this.props.match.params.userId
         if(userEmail !== email){
           
-          axios.get("http://server.metaraw.world:3000/users/profile/get", {params: {email, userEmail}})
+          axios.get("https://server.metaraw.world:3000/users/profile/get", {params: {email, userEmail}})
           .then(res =>{
             if(res.data.statusCode === 200){
               this.setState({
@@ -86,7 +86,7 @@ class VisitorProfile extends React.Component {
   handleAddToContact = () => {
     const myEmail = store.getState().email;
     const userEmail = this.props.match.params.userId;
-    axios.post("http://server.metaraw.world:3000/users/contact/add_a_contact",{myEmail,userEmail})
+    axios.post("https://server.metaraw.world:3000/users/contact/add_a_contact",{myEmail,userEmail})
     .then(res => {
       if(res.data.statusCode === 200){
         this.setState({contactM: "Remove Contact"})
@@ -100,7 +100,7 @@ class VisitorProfile extends React.Component {
   handleDeleteContact = () => {
       const useremail = this.props.match.params.userId;
       const myEmail = store.getState().email
-        axios.delete("http://server.metaraw.world:3000/users/contact/delete",{
+        axios.delete("https://server.metaraw.world:3000/users/contact/delete",{
             params: {
                 myEmail: myEmail,
                 userEmail: useremail

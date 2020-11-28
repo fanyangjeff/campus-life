@@ -44,7 +44,7 @@ class PostContent extends React.Component {
                 store.dispatch(action)
                 this.history.replace('/posts')
             } else {
-              axios.get('http://server.metaraw.world:3000/posts/get_a_post_detail', {params: {postId:this.postId}})
+              axios.get('https://server.metaraw.world:3000/posts/get_a_post_detail', {params: {postId:this.postId}})
               .then(res => {
                   const post = res.data.data
                   this.setState({data: post})

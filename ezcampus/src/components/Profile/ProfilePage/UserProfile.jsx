@@ -53,7 +53,7 @@ class UserProfile extends React.Component {
           if (!isLoading) {
             clearInterval(loadUserInterval)
             const {email} = store.getState()
-            axios.get("http://server.metaraw.world:3000/users/profile/get", {params: {email}})
+            axios.get("https://server.metaraw.world:3000/users/profile/get", {params: {email}})
             .then(res =>{
               if(res.data.statusCode === 200){
                 this.setState({

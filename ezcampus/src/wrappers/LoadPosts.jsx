@@ -4,7 +4,7 @@ import axios from 'axios'
 export default function LoadPosts({children}) {
 
     useEffect(() => {
-        axios.get('http://server.metaraw.world:3000/posts/get_all_posts')
+        axios.get('https://server.metaraw.world/posts/get_all_posts')
         .then(res => {
             let postsMap = {}
             const posts = res.data.data

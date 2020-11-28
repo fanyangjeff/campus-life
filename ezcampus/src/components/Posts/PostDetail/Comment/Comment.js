@@ -25,7 +25,7 @@ class Comment extends Component {
             const {isLoading} = store.getState()
             if (!isLoading) {
                 clearInterval(interval)
-                axios.get('http://server.metaraw.world:3000/posts/fetchTheCommentList', {
+                axios.get('https://server.metaraw.world:3000/posts/fetchTheCommentList', {
                     params: {
                         postId: this.state.postId
                     }
@@ -62,7 +62,7 @@ class Comment extends Component {
         const {email,userName} = store.getState()
         const {postId, commentText} = this.state
         if(commentText !== '') {
-            axios.post('http://server.metaraw.world:3000/posts/updateTheCommentList', {
+            axios.post('https://server.metaraw.world:3000/posts/updateTheCommentList', {
                 'postId': postId,
                 'email': email,
                 'commentText': commentText,
@@ -88,7 +88,7 @@ class Comment extends Component {
     handlerDeleteComment = (event) => {
         console.log("I am here--------",event)
         const {email,userName} = store.getState()
-        axios.delete('http://server.metaraw.world:3000/posts/deleteTheComment',{
+        axios.delete('https://server.metaraw.world:3000/posts/deleteTheComment',{
             // "postId": this.state.postId,
             // "commentId": event,
             params: {
