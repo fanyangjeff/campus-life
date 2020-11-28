@@ -37,52 +37,57 @@ class PostContent extends React.Component {
         likeNumber: 0,
       }
     }
-    handleClick = async () =>{
+    handleClick = () =>{
       const {email} = store.getState()
       axios.post(`${API_PREFIX}/posts/like/like`, 
       {'email': email, 'postId': this.postId})
       .then(res => {
         if (res.data.statusCode === 200) {
-            console.log('Already Liked')
+          this.setState({
+            liked:true,
+            likeNumber: this.state.likeNumber + 1
+          })
         }
       });
-      this.setState({
-        liked:true,
-        likeNumber: this.state.likeNumber + 1
-      })
     }
-    getLikes = async () =>{
+    
+    checkLike =  () =>{
+      let interval = setInterval(() => {
+          const {isLoading} = store.getState()
+          if (!isLoading) {
+           clearInterval(interval)
+           const {isLoggedIn, email} = store.getState()
+           if (isLoggedIn) {
+            axios.get(`${API_PREFIX}/posts/like/check`, {params: {postId:this.postId, email: email}})
+            .then(res => {
+                if (res.data.statusCode === 200) {
+                    this.setState({
+                        liked: res.data.exist
+                    }, () => {
+                    })
+                }
+            })
+           }
+         }
+      }, 5)
+    }
+    
+    getLikes = () =>{
       axios.get(`${API_PREFIX}/posts/like/number`, {params: {postId:this.postId}})
       .then(res => {
           if (res.data.statusCode === 200) {
               this.setState({
                   likeNumber: res.data.likeNumber
               }, () => {
-                  console.log(this.state.likeNumber)
               })
           }
       })
 
-    }
-    checkLike = async () =>{
-      const {email} = store.getState()
-      axios.get(`${API_PREFIX}/posts/like/check`, {params: {postId:this.postId, email: email}})
-      .then(res => {
-          if (res.data.statusCode === 200) {
-              this.setState({
-                  liked: res.data.exist
-              }, () => {
-                console.log(this.postId)
-                console.log(res.data.exist)
-                  // console.log(this.state.liked)
-              })
-          }
-      })
     }
 
     componentDidMount() {
-      this.checkLike()
       this.getLikes()
+      this.checkLike()
       let interval = setInterval(() => {
         const {isLoading} = store.getState()
         if (!isLoading) {
@@ -185,15 +190,15 @@ class PostContent extends React.Component {
                 </div>
                 <style type="text/css"></style>
               </div>
-              {this.state.liked === false?
+              {this.state.liked === true?
+               <Button disabled style={styles.liked}>
+                  Liked
+                  <LikeOutlined style={styles.likeIcon}/>
+              </Button> :
               <Button onClick={this.handleClick}>
-                      Like this Post
-                    <LikeOutlined/>
-              </Button> :  
-              <Button disabled style={styles.liked}>
-                     Liked
-                <LikeOutlined/>
-              </Button>
+                  Like this Post
+                <LikeOutlined style={styles.likeIcon}/>
+              </Button> 
               }
               
           </Card>
