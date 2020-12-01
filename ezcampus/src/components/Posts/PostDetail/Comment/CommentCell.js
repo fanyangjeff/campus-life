@@ -51,12 +51,15 @@ class CommentCell extends Component {
         })
     }
     handlerUpdateComment = () => {
-        this.setState({
-            isEditComment: false,
-        }, () => {
-            this.props.updateComment(this.state.editText, this.props.item.commentId)
-        })
-
+        if(this.state.editText == ''){
+            alert("The comment can not be Empty")
+        }else {
+            this.setState({
+                isEditComment: false,
+            }, () => {
+                this.props.updateComment(this.state.editText, this.props.item.commentId)
+            })
+        }
     }
     handlerUpdateCommentCancel = () => {
         this.setState({

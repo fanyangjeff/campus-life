@@ -61,7 +61,7 @@ export default class FriendCell extends Component {
                             onOk={this.handleDelete}
                             onCancel={this.handleCancel}
                          >
-                        <p>Comfirm to remove <span style={{fontWeight:"bold"}}>{userName}</span> from contact?</p>
+                        <p>Confirm to remove <span style={{fontWeight:"bold"}}>{userName}</span> from contact?</p>
                         </Modal>
                     </div>
                 </div>

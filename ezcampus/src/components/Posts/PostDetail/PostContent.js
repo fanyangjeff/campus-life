@@ -203,7 +203,7 @@ class PostContent extends React.Component {
               }
               
           </Card>
-            <Comment history={this.props.history}/>
+            <Comment history={this.props.history} />
         </div>
       );
     }
