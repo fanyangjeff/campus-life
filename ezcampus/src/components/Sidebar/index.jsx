@@ -2,11 +2,10 @@ import React from "react";
 import {Layout, Menu, Button} from 'antd';
 import {NavLink} from "react-router-dom";
 import {
-    DesktopOutlined,
     PieChartOutlined,
-    FileOutlined,
+    HomeOutlined,
     TeamOutlined,
-    UserOutlined,
+    FileOutlined,
 } from '@ant-design/icons';
 import "antd/dist/antd.css";
 import BigProfile from "./icons/BigProfile.png";
@@ -183,30 +182,24 @@ class SideBar extends React.Component {
                         </NavLink>
                     </div>
                     <Menu theme="dark"  selectedKeys={[location.pathname]}  defaultSelectedKeys={['/posts']} >
-                        <Menu.Item key="/posts" icon={<PieChartOutlined/>}>
+                        <Menu.Item key="/posts" icon={<HomeOutlined/>}>
                             Home
                             <NavLink to="/posts"/>
                         </Menu.Item>
-                        <Menu.Item key="/groups" icon={<DesktopOutlined/>} >
+                        <Menu.Item key="/groups" icon={<PieChartOutlined/>} >
                             Category
                             <NavLink to="/groups"/>
                         </Menu.Item>
 
-                        <Menu.Item key="/posts/my" icon={<UserOutlined/>}>
+                        <Menu.Item key="/posts/my" icon={<FileOutlined/>}>
                             My Posts
                             <NavLink to="/posts/my"/>
                         </Menu.Item>
 
-                        <Menu.Item key="/contacts" icon={<UserOutlined/>}>
+                        <Menu.Item key="/contacts" icon={<TeamOutlined/>}>
                             Contacts
                             <NavLink to={{pathname: '/contacts', state: {from:this.props.location.pathname}}}/>
                         </Menu.Item>
-                            
-                        <Menu.Item key="/message" icon={<DesktopOutlined/>}>
-                            Message
-                            <NavLink to="/message"/>
-                        </Menu.Item>
-
                     </Menu>
                 </Sider>
                 <Layout className="site-layout">
