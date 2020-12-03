@@ -80,15 +80,11 @@ export default class Friends extends Component {
                     const email = store.getState().email
                     axios.get(`${API_PREFIX}/users/contact/get_contactList`, {params: {email}})
                     .then(res => {
-                        //console.log("getting data")
                         if(res.data.statusCode === 200){
-                            //console.log("logging contact data: ", res.data.contact)
                             this.setState({data: res.data.contact})
                         }
                     })
                 }
-            }else {
-                //console.log('loading user info')
             }
         }, 5)
 

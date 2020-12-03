@@ -105,10 +105,14 @@ export default class Create extends Component {
 
 
         //some other info is required for making a post
+
+        const date = new Date().toLocaleDateString();
+        const time = new Date().toLocaleTimeString();
         const otherInfo = {
-            date: new Date().toLocaleString('en-GB', { timeZone: 'PST' }),
+            date: `${time}, ${date}`,
             views: 0,
-            likes: 0
+            likes: 0,
+            postId: uuid()
         }
 
 
@@ -124,7 +128,6 @@ export default class Create extends Component {
                     console.log('post has been created')
                     const action = {type: 'addPost', data: {newPost: {...this.state, ...otherInfo, avatarlink}}}
                     store.dispatch(action)
-                    
                     this.setState({redirect:true})
                 }
             })
