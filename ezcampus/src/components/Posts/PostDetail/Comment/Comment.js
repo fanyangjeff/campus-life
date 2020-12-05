@@ -76,7 +76,7 @@ class Comment extends Component {
         const {email} = store.getState()
         const {postId, commentText} = this.state
         if(commentText === ''){
-            alert("Please enter a valid comment")
+            notify.show('Please enter a valid comment')
         } else {
             axios.post(`${API_PREFIX}/posts/updateTheCommentList`, {
                 'postId': postId,
