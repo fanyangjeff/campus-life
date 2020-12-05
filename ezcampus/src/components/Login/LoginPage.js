@@ -162,7 +162,7 @@ class LoginPage extends Component{
                 //auto login next time
                 if (this.state.rememberUser)
                     localStorage.setItem('ezcampus_user_auto_login', {email: this.state.email, password: this.state.password})
-                
+
             }
         })
         .catch(err => {
@@ -247,11 +247,13 @@ class LoginPage extends Component{
                                 <i className={"faeye"} onClick={this.handlePasswordDisplay}>{this.eye}</i>
                                 <span></span>
                             </div>
-                            <input
-                                type="checkbox"
-                                className="check-box"
-                                placeholder="possword"
-                            /><strong className={"spanText"}>I agree with the term & condition</strong>
+                            <br/>
+                            <br/>
+                            {/*<input*/}
+                            {/*    type="checkbox"*/}
+                            {/*    className="check-box"*/}
+                            {/*    placeholder="possword"*/}
+                            {/*/><strong className={"spanText"}>I agree with the term & condition</strong>*/}
                             <button type="submit" className="sumbit-btn-li">SignUp</button>
                         </form>
                     </div>

@@ -75,7 +75,9 @@ class Comment extends Component {
         const time = new Date().toLocaleTimeString();
         const {email} = store.getState()
         const {postId, commentText} = this.state
-        if(commentText !== '') {
+        if(commentText === ''){
+            alert("Please enter a valid comment")
+        } else {
             axios.post(`${API_PREFIX}/posts/updateTheCommentList`, {
                 'postId': postId,
                 'email': email,
