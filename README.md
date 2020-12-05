@@ -1,1 +1,1 @@
-please visit https://github.com/fanyangjeff/campus-life.git 
+please visit https://5fcaf87a07edee3eb84e89f8--focused-poitras-28c04c.netlify.app to see the deployment
