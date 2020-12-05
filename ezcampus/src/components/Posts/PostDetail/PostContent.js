@@ -32,7 +32,7 @@ class PostContent extends React.Component {
           date: '', 
           postId: '', 
           postType: '',
-          avatarlink: '',
+          avatarlink: ''
         },
         liked: false,
         likeNumber: 0,
@@ -203,7 +203,7 @@ class PostContent extends React.Component {
               }
               
           </Card>
-            <Comment history={this.props.history}/>
+            <Comment history={this.props.history} />
         </div>
       );
     }

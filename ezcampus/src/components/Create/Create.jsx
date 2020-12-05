@@ -21,7 +21,6 @@ export default class Create extends Component {
         super(props)
         this.history = props.history
         this.state = {creatorEmail: '', creatorName: '', description: '', title: '', postType: 'Free or For Sale', redirect:false};
-    
     }
 
     componentDidMount() {
@@ -67,7 +66,7 @@ export default class Create extends Component {
         this.setState({postType: e.target.value})
     }
 
-     
+
     updateEditerComponentText = (e) => {
         this.setState({description: e})
     }
@@ -86,35 +85,38 @@ export default class Create extends Component {
         //check if the title or description is left empty
         const {isLoggedIn} = store.getState()
         if (isLoggedIn == false) {
-            alert('please signup/login first')
+            alert('Please signup/login first.')
             return
         }
 
         if (this.state.title == '') {
-            alert('please enter a valid title')
+            alert('Please enter a valid title.')
             return
         }
 
         if (this.state.description == '') {
-            alert('Description cannot be empty')
+            alert('Description cannot be empty.')
             return
         }
 
 
-        const {userName, email} = store.getState()
+        const {userName, email, avatarlink} = store.getState()
 
 
         //some other info is required for making a post
+
+        const date = new Date().toLocaleDateString();
+        const time = new Date().toLocaleTimeString();
         const otherInfo = {
-            date: new Date().toLocaleString('en-GB', { timeZone: 'PST' }),
+            date: `${time}, ${date}`,
             views: 0,
             likes: 0,
             postId: uuid()
         }
 
-        
+
         //since setState is aysnc, the aixos API call need to be placed in its callback function
-        
+
         this.setState({creatorName: userName, creatorEmail:email}, () => {
             axios.post(`${API_PREFIX}/posts/create_a_post`, {
                 ...this.state,
@@ -123,9 +125,8 @@ export default class Create extends Component {
             .then(res => {
                 if (res.data.statusCode == 200) {
                     console.log('post has been created')
-                    const action = {type: 'addPost', data: {newPost: {...this.state, ...otherInfo}}}
+                    const action = {type: 'addPost', data: {newPost: {...this.state, ...otherInfo, avatarlink}}}
                     store.dispatch(action)
-                    // this.history.push('/posts')
                     this.setState({redirect:true})
                 }
             })
@@ -146,36 +147,37 @@ export default class Create extends Component {
                     <div className="form-group">
                         <label><strong>Title</strong></label>
                         <input type="text" className="form-control"
-                               placeholder="Please enter the title of this post"
+                               placeholder="Please enter the title of this post."
                                onChange={this.updateTitle}/>
                     </div>
                     <div className="form-group">
                         <label><strong>Category</strong></label>
                         <select className="form-control" id="postCategory" onChange={this.updateType}>
+                            <option>Others</option>
                             <option>Free or For Sale</option>
                             <option>Ride Sharing</option>
                             <option>Cutie Pets</option>
                             <option>Housing</option>
                             <option>Entertainment</option>
-                            <option>Others</option>
                         </select>
                     </div>
                 </form>
                 <div className='create-post-text-area'>
                 <p><strong>Description</strong></p>
                 <FroalaEditorComponent tag={'textarea'} config={{
-                    placeholderText: 'Write the details here!',
+                    placeholderText: 'Write the description here.',
                     imageDefaultWidth: 500,
                     imageUpload: true,
                     events: {
-                            'image.beforeUpload': function (images) {                           
+                            'image.beforeUpload': function (images) {
                             const data = new FormData();
                             data.append('image', images[0]);
                             axios.post('https://api.imgur.com/3/image', data, {
                                 headers: {
                                     'Authorization': 'Client-ID c9897a7d288d020'
                                 }
-                            }).then(res => {                                
+
+                            }).then(res => {
                                 console.log(this);
                                 this.image.insert(res.data.data.link);
                             });
